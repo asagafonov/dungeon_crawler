@@ -1,0 +1,9 @@
+[locales]
+set = "Выбран язык"
+set_default = "Язык не найден. Выбран язык"
+
+[errors]
+user_input = "Ошибка при чтении ввода"
+
+[player]
+create = "Выберите класс"

@@ -1,0 +1,15 @@
+[locales]
+set = "The language is set to"
+set_default = "Such language does not exist. The language is set to"
+
+[errors]
+user_input = "An error occurred while reading user input"
+
+[player]
+create = "Choose your class"
+
+[player.class]
+warrior = "Warrior"
+mage = "Mage"
+rogue = "Rogue"
+random = "random class"
