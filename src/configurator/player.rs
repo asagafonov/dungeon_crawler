@@ -2,7 +2,7 @@ use rand::Rng;
 use std::io;
 use rust_i18n::t;
 use crate::data::enumerables::{
-  Hero, Treasure, Class, WeaponClass, ArmorClass,
+  Hero, Class, Weapon, Armor, WeaponClass, ArmorClass,
 };
 
 pub fn create_player() -> Hero {
@@ -32,54 +32,60 @@ pub fn create_player() -> Hero {
   }
 }
 
-fn build_default_sword() -> Treasure {
-  Treasure::Weapon {
+fn build_default_sword() -> Weapon {
+  Weapon {
     class: WeaponClass::Sword,
+    belongs_to: Class::Warrior,
     name: String::new(),
     attack: 5,
     description: String::new(),
   }
 }
 
-fn build_default_staff() -> Treasure {
-  Treasure::Weapon {
+fn build_default_staff() -> Weapon {
+  Weapon {
     class: WeaponClass::Staff,
+    belongs_to: Class::Mage,
     name: String::new(),
     attack: 3,
     description: String::new(),
   }
 }
 
-fn build_default_dagger() -> Treasure {
-  Treasure::Weapon {
+fn build_default_dagger() -> Weapon {
+  Weapon {
     class: WeaponClass::Dagger,
+    belongs_to: Class::Rogue,
     name: String::new(),
     attack: 2,
     description: String::new(),
   }
 }
 
-fn build_default_shield() -> Treasure {
-  Treasure::Armor {
+fn build_default_shield() -> Armor {
+  Armor {
     class: ArmorClass::Shield,
+    belongs_to: Class::Warrior,
     name: String::new(),
     defence: 5,
     description: String::new(),
   }
 }
 
-fn build_default_sphere() -> Treasure {
-  Treasure::Armor {
+fn build_default_sphere() -> Armor {
+  Armor {
     class: ArmorClass::Sphere,
+    belongs_to: Class::Mage,
     name: String::new(),
     defence: 4,
     description: String::new(),
   }
 }
 
-fn build_default_cloak() -> Treasure {
-  Treasure::Armor {
+fn build_default_cloak() -> Armor {
+  Armor {
     class: ArmorClass::Cloak,
+    belongs_to: Class::Rogue,
     name: String::new(),
     defence: 3,
     description: String::new(),
@@ -91,16 +97,18 @@ fn build_default_warrior() -> Hero {
     class: Class::Warrior,
     health: 25,
     attack: 5,
+    defence: 10,
     weapon: build_default_sword(),
     armor: build_default_shield(),
   }
 }
 
 fn build_default_mage() -> Hero {
-  Hero {
+   Hero {
     class: Class::Mage,
     health: 20,
     attack: 8,
+    defence: 5,
     weapon: build_default_staff(),
     armor: build_default_sphere(),
   }
@@ -111,6 +119,7 @@ fn build_default_rogue() -> Hero {
     class: Class::Rogue,
     health: 30,
     attack: 10,
+    defence: 3,
     weapon: build_default_dagger(),
     armor: build_default_cloak(),
   }
