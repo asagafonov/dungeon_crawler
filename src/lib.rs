@@ -17,12 +17,8 @@ i18n!("locales", fallback = "en");
 pub fn start_game() {
     set_locale();
 
-    let (map, hero) = configure_state();
-
-    let engine = Engine {
-        player: hero,
-        dungeon: map,
-    };
+    let (map, player) = configure_state();
+    let mut engine = Engine::new(map, player);
 
     engine.run();
 }

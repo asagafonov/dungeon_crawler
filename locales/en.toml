@@ -5,11 +5,33 @@ set_default = "Such language does not exist. The language is set to"
 [errors]
 user_input = "An error occurred while reading user input"
 
+[game]
+started = "You are in a dungeon full of monsters. Find the boss and slay it!"
+
 [player]
 create = "Choose your class"
+created = "You are now a"
 
 [player.class]
 warrior = "Warrior"
 mage = "Mage"
 rogue = "Rogue"
 random = "random class"
+
+[input]
+inexistant = "What a stupid idea, you say, and stay idle"
+
+[move]
+forward = "go forward"
+backwards = "go backwards"
+left = "go left"
+right = "go right"
+explore = "explore"
+
+[battle]
+attack = "attack"
+retreat = "retreat"
+
+[metagame]
+rules = "rules"
+actions = "actions"

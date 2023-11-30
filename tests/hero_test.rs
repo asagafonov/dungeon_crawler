@@ -1,4 +1,4 @@
-use dungeon_crawler::data::enumerables::{Hero, Class, Weapon, WeaponClass, Armor, ArmorClass, Item};
+use dungeon_crawler::data::enumerables::{Player, Class, Weapon, WeaponClass, Armor, ArmorClass, Item};
 
 #[test]
 fn stronger_weapon_is_equipped() {
@@ -55,8 +55,8 @@ fn another_class_weapon_is_ignored() {
 
 // helpers
 
-fn create_warrior() -> Hero {
-  Hero {
+fn create_warrior() -> Player {
+  Player {
    class: Class::Warrior,
    health: 20,
    attack: 5,

@@ -1,18 +1,21 @@
 use std::io;
 
-use crate::{
-  data::enumerables::Hero,
-  configurator::map::Map,
-  interactor::Interactor,
-};
+use crate::data::enumerables::Player;
+use crate::configurator::map::Map;
+use crate::interactor::Interactor;
 
 pub struct Engine {
-  pub player: Hero,
-  pub dungeon: Map,
+  pub player: Player,
+  pub map: Map,
 }
 
 impl Engine {
-  pub fn run(&self) {
+  pub fn new(map: Map, player: Player) -> Engine {
+    Engine { player, map }
+  }
+
+  pub fn run(&mut self) {
+    println!("{}", t!("game.started"));
     let is_boss_defeated = false;
 
     while !is_boss_defeated & (self.player.health > 0) {
@@ -24,7 +27,7 @@ impl Engine {
 
       let user_input = user_input.trim();
 
-      Interactor::interpret(user_input);
+      Interactor::interpret(user_input, self);
     }
   }
 }

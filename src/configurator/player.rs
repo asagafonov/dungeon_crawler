@@ -2,10 +2,10 @@ use rand::Rng;
 use std::io;
 use rust_i18n::t;
 use crate::data::enumerables::{
-  Hero, Class, Weapon, Armor, WeaponClass, ArmorClass,
+  Player, Class, Weapon, Armor, WeaponClass, ArmorClass,
 };
 
-pub fn create_player() -> Hero {
+pub fn create_player() -> Player {
   println!("{}", t!("player.create"));
   println!(
     "[1] -> {}, [2] -> {}, [3] -> {}, [4] -> {}",
@@ -92,8 +92,10 @@ fn build_default_cloak() -> Armor {
   }
 }
 
-fn build_default_warrior() -> Hero {
-  Hero {
+fn build_default_warrior() -> Player {
+  println!("{} {}", t!("player.created"), t!("player.class.warrior"));
+
+  Player {
     class: Class::Warrior,
     health: 25,
     attack: 5,
@@ -103,8 +105,10 @@ fn build_default_warrior() -> Hero {
   }
 }
 
-fn build_default_mage() -> Hero {
-   Hero {
+fn build_default_mage() -> Player {
+   println!("{} {}", t!("player.created"), t!("player.class.mage"));
+
+   Player {
     class: Class::Mage,
     health: 20,
     attack: 8,
@@ -114,8 +118,10 @@ fn build_default_mage() -> Hero {
   }
 }
 
-fn build_default_rogue() -> Hero {
-  Hero {
+fn build_default_rogue() -> Player {
+  println!("{} {}", t!("player.created"), t!("player.class.rogue"));
+
+  Player {
     class: Class::Rogue,
     health: 30,
     attack: 10,
@@ -125,7 +131,7 @@ fn build_default_rogue() -> Hero {
   }
 }
 
-fn build_random_class() -> Hero {
+fn build_random_class() -> Player {
   let num: i8 = rand::thread_rng().gen_range(0..3);
 
   match num {

@@ -7,7 +7,7 @@ pub enum Class {
   Any,
 }
 
-pub struct Hero {
+pub struct Player {
   pub class: Class,
   pub health: i8,
   pub attack: i8,
@@ -16,13 +16,13 @@ pub struct Hero {
   pub armor: Armor,
 }
 
-impl Hero {
+impl Player {
   pub fn equip(&mut self, item: Item) {
     match item {
       Item::Weapon(weapon) => {
         let current_weapon = &self.weapon;
-        let weapon_class = Hero::get_class_as_str(&weapon.belongs_to);
-        let hero_class = Hero::get_class_as_str(&self.class);
+        let weapon_class = Player::get_class_as_str(&weapon.belongs_to);
+        let hero_class = Player::get_class_as_str(&self.class);
 
         if weapon_class != hero_class {
           println!("{}", t!("items.unusable"));
@@ -38,8 +38,8 @@ impl Hero {
       },
       Item::Armor(armor) => {
         let current_armor = &self.armor;
-        let armor_class = Hero::get_class_as_str(&armor.belongs_to);
-        let hero_class = Hero::get_class_as_str(&self.class);
+        let armor_class = Player::get_class_as_str(&armor.belongs_to);
+        let hero_class = Player::get_class_as_str(&self.class);
 
         if armor_class != hero_class {
           println!("{}", t!("items.unusable"));
