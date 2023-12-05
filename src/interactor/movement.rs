@@ -1,6 +1,12 @@
 use rust_i18n::t;
 use substring::Substring;
-use crate::{engine::Engine, configurator::map::{Map, Terrain}};
+use crate::{
+  engine::Engine,
+  configurator::map::{
+    Map,
+    Terrain,
+  },
+};
 
 pub struct Directions {
   forward: bool,
@@ -30,7 +36,6 @@ impl MovementController {
 
     if directions.forward {
       let id = &terrain.children[directions.forward_route_index].id;
-      println!("terrain id: {}", id);
 
       state.progress.position = String::from(id);
       println!("{}", t!("move.success"));

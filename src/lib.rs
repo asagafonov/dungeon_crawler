@@ -1,7 +1,7 @@
 pub mod configurator;
 pub mod data;
 pub mod interactor;
-mod engine;
+pub mod engine;
 
 use crate::configurator::{
     configure_state,
