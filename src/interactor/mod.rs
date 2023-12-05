@@ -1,4 +1,5 @@
 use rust_i18n::t;
+use std::str;
 
 pub mod battle;
 pub mod movement;
@@ -15,39 +16,35 @@ use crate::interactor::{
 pub struct Interactor;
 
 impl Interactor {
-  pub fn interpret(user_input: &str, state: &mut Engine) {
-    match user_input {
-      input if Interactor::is_movement(user_input) => MovementController::execute(input, state),
-      input if Interactor::is_battle(user_input) => BattleController::execute(input, state),
-      input if Interactor::is_metagame(user_input) => MetagameController::execute(input, state),
-      _ => println!("{}", t!("input.inexistant"))
+  pub fn execute(
+    command: &str,
+    mut state: &mut Engine,
+  ) {
+    match command {
+      // movement
+      _ if command.is(t!("move.forward")) => MovementController::go_forward(&mut state),
+      _ if command.is(t!("move.left")) => MovementController::go_left(&mut state),
+      _ if command.is(t!("move.right")) => MovementController::go_right(&mut state),
+      _ if command.is(t!("move.backwards")) => MovementController::go_backwards(&mut state),
+      _ if command.is(t!("move.explore")) => MovementController::explore(&state),
+      // battle
+      _ if command.is(t!("battle.attack")) => BattleController::attack(&mut state),
+      _ if command.is(t!("battle.retreat")) => BattleController::retreat(&mut state),
+      // meta
+      _ if command.is(t!("metagame.rules")) => MetagameController::show_rules(),
+      _ if command.is(t!("metagame.status")) => MetagameController::show_status(&state),
+      _ if command.is(t!("metagame.exit")) => MetagameController::exit(&state),
+      _ => MetagameController::do_nothing(),
     }
   }
+}
 
-  fn is_movement(input: &str) -> bool {
-    match input {
-      _ if t!("move.forward").eq(input) => true,
-      _ if t!("move.left").eq(input) => true,
-      _ if t!("move.right").eq(input) => true,
-      _ if t!("move.backwards").eq(input) => true,
-      _ if t!("move.explore").eq(input) => true,
-      _ => false,
-    }
-  }
+pub trait Identifier {
+  fn is(&self, text: String) -> bool;
+}
 
-  fn is_battle(input: &str) -> bool {
-    match input {
-      _ if t!("battle.attack").eq(input) => true,
-      _ if t!("battle.retreat").eq(input) => true,
-      _ => false,
-    }
-  }
-
-  fn is_metagame(input: &str) -> bool {
-    match input {
-      _ if t!("metagame.rules").eq(input) => true,
-      _ if t!("metagame.actions").eq(input) => true,
-      _ => false,
-    }
+impl Identifier for str {
+  fn is(&self, text: String) -> bool {
+      text.eq(self)
   }
 }

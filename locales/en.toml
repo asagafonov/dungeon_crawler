@@ -18,15 +18,22 @@ mage = "Mage"
 rogue = "Rogue"
 random = "random class"
 
-[input]
-inexistant = "What a stupid idea, you say, and stay idle"
-
 [move]
 forward = "go forward"
 backwards = "go backwards"
 left = "go left"
 right = "go right"
 explore = "explore"
+success = "You crawl through a narrow passageway towards a danger lying ahead"
+direction_missing = "This path is blocked. Where should I go?"
+command_ambiguous = "Type \"explore\" to look around"
+
+[move.exploration]
+look_around = "You raise your torch higher and this is what you see"
+forward_available = "- you can go forward [command: \"go forward\"]"
+left_available = "- you can go left [command: \"go left\"]"
+right_available = "- you can go right [command: \"go right\"]"
+backwards_available = "- you can go backwards [command: \"go backwards\"]"
 
 [battle]
 attack = "attack"
@@ -35,3 +42,5 @@ retreat = "retreat"
 [metagame]
 rules = "rules"
 actions = "actions"
+idle = "A crazy idea pops into your head... but no, no... better think twice"
+role = "You are a mighty"

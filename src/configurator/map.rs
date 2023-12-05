@@ -31,6 +31,22 @@ impl Map {
     Map { dungeon }
   }
 
+  pub fn find_by<'a>(dungeon: &'a Terrain, id: &String) -> (bool, &'a Terrain) {
+    if id.eq(&dungeon.id) {
+      return (true, dungeon);
+    }
+
+    for child in &dungeon.children {
+      let (found_id, terrain) = Self::find_by(&child, id);
+
+      if found_id {
+        return (true, terrain)
+      }
+    }
+
+    (false, dungeon)
+  }
+
   fn create_terrain(id: &String) -> Terrain {
     if id.len() as i8 > MAX_DUNGEON_DEPTH {
       return Terrain {
