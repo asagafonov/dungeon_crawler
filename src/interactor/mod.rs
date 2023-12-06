@@ -20,21 +20,27 @@ impl Interactor {
     command: &str,
     mut state: &mut Engine,
   ) {
-    match command {
-      // movement
-      _ if command.is(t!("move.forward")) => MovementController::go_forward(&mut state),
-      _ if command.is(t!("move.left")) => MovementController::go_left(&mut state),
-      _ if command.is(t!("move.right")) => MovementController::go_right(&mut state),
-      _ if command.is(t!("move.backwards")) => MovementController::go_backwards(&mut state),
-      _ if command.is(t!("move.explore")) => MovementController::explore(&state),
-      // battle
-      _ if command.is(t!("battle.attack")) => BattleController::attack(&mut state),
-      _ if command.is(t!("battle.retreat")) => BattleController::retreat(&mut state),
-      // meta
-      _ if command.is(t!("metagame.rules")) => MetagameController::show_rules(),
-      _ if command.is(t!("metagame.status")) => MetagameController::show_status(&state),
-      _ if command.is(t!("metagame.exit")) => MetagameController::exit(&state),
-      _ => MetagameController::do_nothing(),
+    if state.progress.battle_mode {
+      match command {
+        _ if command.is(t!("battle.attack")) => BattleController::attack(&mut state),
+        _ if command.is(t!("battle.retreat")) => BattleController::retreat(&mut state),
+        _ => MetagameController::do_nothing(),
+      }
+    } else {
+      match command {
+        // movement
+        _ if command.is(t!("move.forward")) => MovementController::go_forward(&mut state),
+        _ if command.is(t!("move.left")) => MovementController::go_left(&mut state),
+        _ if command.is(t!("move.right")) => MovementController::go_right(&mut state),
+        _ if command.is(t!("move.backwards")) => MovementController::go_backwards(&mut state),
+        _ if command.is(t!("move.explore")) => MovementController::explore(&mut state),
+
+        // meta
+        _ if command.is(t!("metagame.rules")) => MetagameController::show_rules(),
+        _ if command.is(t!("metagame.status")) => MetagameController::show_status(&mut state),
+        _ if command.is(t!("metagame.exit")) => MetagameController::exit(&mut state),
+        _ => MetagameController::do_nothing(),
+      }
     }
   }
 }

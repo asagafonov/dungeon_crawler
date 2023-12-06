@@ -25,6 +25,7 @@ left = "go left"
 right = "go right"
 explore = "explore"
 success = "You crawl through a narrow passageway towards a danger lying ahead"
+success_backwards = "You return to the previous chamber. Nothing happens"
 direction_missing = "This path is blocked. Where should I go?"
 command_ambiguous = "Type \"explore\" to look around"
 
@@ -39,8 +40,21 @@ backwards_available = "- you can go backwards [command: \"go backwards\"]"
 attack = "attack"
 retreat = "retreat"
 
+[content]
+empty = "The chamber is empty"
+
+[content.monster]
+encounter = "A terrible monster arises before you. It is going to attack!"
+
+[content.trap]
+encounter = "You make a bold step and a weird looking mechanism starts to spin. It's a trap!"
+
+[content.treasure]
+encounter = "Something is glimmering in the dark. Could it be of any use?"
+
 [metagame]
 rules = "rules"
 actions = "actions"
 idle = "A crazy idea pops into your head... but no, no... better think twice"
 role = "You are a mighty"
+
