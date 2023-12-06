@@ -149,11 +149,19 @@ impl MovementController {
 
   fn unravel_content(content: &Content) {
     match content {
-      Content::Monster { .. } => {
+      Content::Monster {
+        name,
+        level,
+        hates,
+        ..
+      } => {
         println!("{}", t!("content.monster.encounter"));
+        println!("{} {}", t!("content.monster.behold"), name);
       },
-      Content::Trap { .. } => {
+      Content::Trap { damage, .. } => {
         println!("{}", t!("content.trap.encounter"));
+        println!("{} {} {}", t!("content.trap.deals"), damage, t!("content.trap.damage"));
+        println!("{} {}", t!("player.remaining_health"), 20);
       },
       Content::Treasure { .. } => {
         println!("{}", t!("content.treasure.encounter"));

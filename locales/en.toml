@@ -11,6 +11,7 @@ started = "You are in a dungeon full of monsters. Find the boss and slay it!"
 [player]
 create = "Choose your class"
 created = "You are now a"
+remaining_health = "Your remaining health is"
 
 [player.class]
 warrior = "Warrior"
@@ -45,9 +46,12 @@ empty = "The chamber is empty"
 
 [content.monster]
 encounter = "A terrible monster arises before you. It is going to attack!"
+behold = "Behold"
 
 [content.trap]
 encounter = "You make a bold step and a weird looking mechanism starts to spin. It's a trap!"
+deals = "The trap deals"
+damage = "damage"
 
 [content.treasure]
 encounter = "Something is glimmering in the dark. Could it be of any use?"
