@@ -15,23 +15,23 @@ fn can_move_around() {
 
   // can go left
   MovementController::go_left(&mut state);
-  assert_eq!(String::from(&state.progress.position), String::from("00"));
+  assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("00"));
 
   // can go back
   MovementController::go_backwards(&mut state);
-  assert_eq!(String::from(&state.progress.position), String::from("0"));
+  assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("0"));
 
   // can go right
   MovementController::go_right(&mut state);
-  assert_eq!(String::from(&state.progress.position), String::from("01"));
+  assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("01"));
 
   // can go back again
   MovementController::go_backwards(&mut state);
-  assert_eq!(String::from(&state.progress.position), String::from("0"));
+  assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("0"));
 
   // going forward doesn't change position, as forward direction doesn't exist
   MovementController::go_forward(&mut state);
-  assert_eq!(String::from(&state.progress.position), String::from("0"));
+  assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("0"));
 }
 
 // helpers

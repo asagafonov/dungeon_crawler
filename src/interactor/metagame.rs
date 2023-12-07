@@ -8,7 +8,7 @@ impl MetagameController {
     println!(
       "{} {}!",
       t!("metagame.role"),
-      Self::class_as_string(&state.player.class),
+      Self::class_as_string(&state.player.lock().unwrap().class),
      );
 
 
@@ -28,7 +28,6 @@ impl MetagameController {
   }
 
   pub fn exit(state: &Engine) {
-
   }
 
   fn class_as_string(class: &Class) -> String {

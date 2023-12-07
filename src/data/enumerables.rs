@@ -164,7 +164,7 @@ pub enum Content {
   },
   Trap {
     class: TrapClass,
-    damage: i16,
+    damage: i8,
     description: String,
   },
   Treasure {
