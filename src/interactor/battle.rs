@@ -13,5 +13,6 @@ impl BattleController {
   pub fn retreat(state: &Engine) {
     println!("{}", t!("battle.you_have_fled"));
     MovementController::go_backwards(state);
+    state.progress.lock().unwrap().battle_mode = false;
   }
 }
