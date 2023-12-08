@@ -1,7 +1,7 @@
 use dungeon_crawler::{
   configurator::map::{Map, Terrain},
   data::{
-    enumerables::{Content, MonsterLevel},
+    enumerables::{Content, Monster, MonsterLevel},
     constants::MAX_DUNGEON_DEPTH,
   }
 };
@@ -32,7 +32,7 @@ fn boss_is_reachable_at_dungeon_end() {
 // helpers
 
 fn search_for_boss(dungeon: &Terrain) -> (bool, &str) {
-  if matches!(dungeon.content, Content::Monster { level: MonsterLevel::Boss, .. }) {
+  if matches!(dungeon.content, Content::Monster(Monster { level: MonsterLevel::Boss, .. })) {
     return (true, &dungeon.id);
   }
 

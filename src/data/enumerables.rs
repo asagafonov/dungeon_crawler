@@ -1,5 +1,6 @@
 use rust_i18n::t;
 
+#[derive(Clone)]
 pub enum Class {
   Warrior,
   Mage,
@@ -17,12 +18,13 @@ pub struct Player {
 }
 
 impl Player {
-  pub fn equip(&mut self, item: Item) {
+  pub fn equip(&mut self, item: &Item) {
     match item {
       Item::Weapon(weapon) => {
         let current_weapon = &self.weapon;
-        let weapon_class = Player::get_class_as_str(&weapon.belongs_to);
-        let hero_class = Player::get_class_as_str(&self.class);
+        let weapon_class = Player::get_class_as_string(&weapon.belongs_to);
+        let hero_class = Player::get_class_as_string(&self.class);
+        println!("{}", t!("items.define", item = Player::get_weapon_as_string(&current_weapon.class), power = current_weapon.attack));
 
         if weapon_class != hero_class {
           println!("{}", t!("items.unusable"));
@@ -38,8 +40,9 @@ impl Player {
       },
       Item::Armor(armor) => {
         let current_armor = &self.armor;
-        let armor_class = Player::get_class_as_str(&armor.belongs_to);
-        let hero_class = Player::get_class_as_str(&self.class);
+        let armor_class = Player::get_class_as_string(&armor.belongs_to);
+        let hero_class = Player::get_class_as_string(&self.class);
+        println!("{}", t!("items.define", item = Player::get_armor_as_string(&current_armor.class), power = current_armor.defence));
 
         if armor_class != hero_class {
           println!("{}", t!("items.unusable"));
@@ -54,13 +57,15 @@ impl Player {
         }
       },
       Item::HealthPotion(health_potion) => {
+        println!("{}", t!("items.drink_potion", power = health_potion.power));
         self.health += health_potion.power;
+        println!("{}", t!("player.health_left", health = self.health));
       },
       Item::Empty => {}
     }
   }
 
-  fn get_class_as_str(val: &Class) -> String {
+  fn get_class_as_string(val: &Class) -> String {
     match val {
       Class::Warrior => "warrior".to_string(),
       Class::Mage => "mage".to_string(),
@@ -68,8 +73,25 @@ impl Player {
       _ => "unknown".to_string(),
     }
   }
+
+  fn get_weapon_as_string(val: &WeaponClass) -> String {
+    match val {
+      WeaponClass::Sword => "sword".to_string(),
+      WeaponClass::Staff => "staff".to_string(),
+      WeaponClass::Dagger => "dagger".to_string(),
+    }
+  }
+
+  fn get_armor_as_string(val: &ArmorClass) -> String {
+    match val {
+      ArmorClass::Shield => "shield".to_string(),
+      ArmorClass::Sphere => "sphere".to_string(),
+      ArmorClass::Cloak => "cloak".to_string(),
+    }
+  }
 }
 
+#[derive(Clone)]
 pub enum Item {
   Weapon(Weapon),
   Armor(Armor),
@@ -77,6 +99,7 @@ pub enum Item {
   Empty,
 }
 
+#[derive(Clone)]
 pub struct Weapon {
   pub class: WeaponClass,
   pub belongs_to: Class,
@@ -85,6 +108,7 @@ pub struct Weapon {
   pub description: String,
 }
 
+#[derive(Clone)]
 pub struct Armor {
   pub class: ArmorClass,
   pub belongs_to: Class,
@@ -93,6 +117,7 @@ pub struct Armor {
   pub description: String,
 }
 
+#[derive(Clone)]
 pub struct HealthPotion {
   pub power: i8,
   pub description: String
@@ -112,6 +137,7 @@ pub enum ArmorClass {
   Cloak,
 }
 
+#[derive(Clone)]
 pub enum Treasure {
   Weapon {
     class: WeaponClass,
@@ -132,12 +158,14 @@ pub enum Treasure {
   Empty
 }
 
+#[derive(Clone)]
 pub enum TrapClass {
   StealLife,
   StealAttack,
   StealDefence,
 }
 
+#[derive(Clone)]
 pub enum MonsterLevel {
   Weak,
   Average,
@@ -152,24 +180,26 @@ pub enum ContentType {
   Empty,
 }
 
+#[derive(Clone)]
+pub struct Monster {
+  pub name: String,
+  pub health: i8,
+  pub attack: i8,
+  pub level: MonsterLevel,
+  pub hates: Class,
+  pub loot: Box<Content>,
+}
+
+#[derive(Clone)]
+pub struct Trap {
+  pub class: TrapClass,
+  pub damage: i8,
+}
+
+#[derive(Clone)]
 pub enum Content {
-  Monster {
-    name: String,
-    health: i16,
-    attack: i16,
-    level: MonsterLevel,
-    hates: Class,
-    description: String,
-    loot: Box<Content>,
-  },
-  Trap {
-    class: TrapClass,
-    damage: i8,
-    description: String,
-  },
-  Treasure {
-    content: Treasure,
-    description: String,
-  },
+  Monster(Monster),
+  Trap(Trap),
+  Treasure(Item),
   Empty,
 }

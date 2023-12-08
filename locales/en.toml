@@ -11,7 +11,10 @@ started = "You are in a dungeon full of monsters. Find the boss and slay it!"
 [player]
 create = "Choose your class"
 created = "You are now a"
-remaining_health = "Your remaining health is"
+remaining_health = "You have %{health} health remaining"
+remaining_attack = "You have %{attack} attack left"
+remaining_defence = "You have %{defence} defence left"
+health_left = "You have %{health} health"
 
 [player.class]
 warrior = "Warrior"
@@ -39,9 +42,15 @@ right_available = "- you can go right [command: \"go right\"]"
 backwards_available = "- you can go backwards [command: \"go backwards\"]"
 
 [battle]
-attack = "attack"
+fight = "fight"
 retreat = "retreat"
 you_have_fled = "You are running for your life. The monster now hates you"
+hurt_monster = "Your strike deals %{damage} damage"
+monster_defeated = "Your terrible opponent perishes"
+monster_revenge = "The enraged monster fights back. It deals %{damage} damage"
+
+[battle.monster]
+health_left = "Your terrible opponent is at %{health} health"
 
 [content]
 empty = "The chamber is empty"
@@ -52,8 +61,9 @@ behold = "Behold"
 
 [content.trap]
 encounter = "You make a bold step and a weird looking mechanism starts to spin. It's a trap!"
-deals = "The trap deals"
-damage = "damage"
+damage_attack = "Rust covers your weapon dealing %{damage} damage"
+damage_defence = "Strong acid melts your armor for %{damage} damage"
+damage_health = "Razor sharp blades hurt you for %{damage} health"
 
 [content.treasure]
 encounter = "Something is glimmering in the dark. Could it be of any use?"
@@ -64,3 +74,9 @@ actions = "actions"
 idle = "A crazy idea pops into your head... but no, no... better think twice"
 role = "You are a mighty"
 
+[items]
+define = "You discover a magnificent %{item}: %{power} power"
+unusable = "Unfortunately it is no use for you"
+equipped_successfully = "You put your old equipment down and equip a new one"
+too_weak = "At a closer look you see that items you already bear are stronger than this pathetic piece of rust"
+drink_potion = "A health potion! You drink it and gain %{power} health"

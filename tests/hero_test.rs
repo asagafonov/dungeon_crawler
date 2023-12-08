@@ -13,7 +13,7 @@ fn stronger_weapon_is_equipped() {
 
   let expected_warrior_attack = warrior.attack - warrior.weapon.attack + stronger_sword.attack;
 
-  warrior.equip(Item::Weapon(stronger_sword));
+  warrior.equip(&Item::Weapon(stronger_sword));
 
   assert_eq!(warrior.attack, expected_warrior_attack);
 }
@@ -31,7 +31,7 @@ fn weaker_weapon_is_ignored() {
   };
 
   let expected_warrior_attack = warrior.attack;
-  warrior.equip(Item::Weapon(weaker_sword));
+  warrior.equip(&Item::Weapon(weaker_sword));
 
   assert_eq!(warrior.attack, expected_warrior_attack);
 }
@@ -49,7 +49,7 @@ fn another_class_weapon_is_ignored() {
     description: String::from("Shoots fireballs"),
   };
 
-  warrior.equip(Item::Weapon(staff));
+  warrior.equip(&Item::Weapon(staff));
   assert_eq!(warrior.attack, old_warrior_attack);
 }
 

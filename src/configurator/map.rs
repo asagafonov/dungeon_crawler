@@ -4,10 +4,15 @@ use crate::data::{
     Content,
     Class,
     MonsterLevel,
-    Treasure,
     TrapClass,
     WeaponClass,
     ArmorClass,
+    Monster,
+    Trap,
+    Item,
+    Weapon,
+    Armor,
+    HealthPotion,
   },
   constants::MAX_DUNGEON_DEPTH,
 };
@@ -101,44 +106,41 @@ impl Map {
     };
 
     match monster_index {
-      1 => Content::Monster {
+      1 => Content::Monster(Monster {
         name: String::new(),
         health: 10,
         attack: 3,
         level: MonsterLevel::Weak,
         hates: opponent,
-        description: String::new(),
         loot: Box::new(Map::generate_random_treasure(MonsterLevel::Weak)),
-      },
-      2 => Content::Monster {
+      }),
+      2 => Content::Monster(Monster {
         name: String::new(),
         health: 15,
         attack: 5,
         level: MonsterLevel::Average,
         hates: opponent,
-        description: String::new(),
         loot: Box::new(Map::generate_random_treasure(MonsterLevel::Average)),
-      },
-      _ => Content::Monster {
+      }),
+      _ => Content::Monster(Monster {
         name: String::new(),
         health: 20,
         attack: 7,
         level: MonsterLevel::Strong,
         hates: opponent,
-        description: String::new(),
         loot: Box::new(Map::generate_random_treasure(MonsterLevel::Strong)),
-      },
+      }),
     }
   }
 
   fn generate_random_treasure(monster_level: MonsterLevel) -> Content {
     let treasure_class: i8 = rand::thread_rng().gen_range(0..=2);
-    let hero_class: i8 = rand::thread_rng().gen_range(0..=2);
+    let character: i8 = rand::thread_rng().gen_range(0..=2);
 
-    let (weapon_class, armor_class) = match hero_class {
-      0 => (WeaponClass::Sword, ArmorClass::Shield),
-      1 => (WeaponClass::Staff, ArmorClass::Sphere),
-      _ => (WeaponClass::Dagger, ArmorClass::Cloak),
+    let (weapon_class, armor_class, hero_class) = match character {
+      0 => (WeaponClass::Sword, ArmorClass::Shield, Class::Warrior),
+      1 => (WeaponClass::Staff, ArmorClass::Sphere, Class::Mage),
+      _ => (WeaponClass::Dagger, ArmorClass::Cloak, Class::Rogue),
     };
 
     let max_power: i8 = match monster_level {
@@ -151,53 +153,50 @@ impl Map {
     let item_power = rand::thread_rng().gen_range(2..=max_power);
 
     match treasure_class {
-      0 => Content::Treasure {
-        content: Treasure::Weapon {
+      0 => { Content::Treasure(Item::Weapon(Weapon {
           class: weapon_class,
           name: String::new(),
           attack: item_power,
           description: String::new(),
-        },
-        description: String::new(),
+          belongs_to: hero_class,
+        }))
       },
-      1 => Content::Treasure {
-        content: Treasure::Armor {
+      1 => { Content::Treasure(Item::Armor(Armor {
           class: armor_class,
           name: String::new(),
           defence: item_power,
           description: String::new(),
-        },
-        description: String::new(),
+          belongs_to: hero_class,
+        }))
       },
-      _ => Content::Treasure {
-        content: Treasure::HealthPotion {
+      _ => {
+        Content::Treasure(Item::HealthPotion( HealthPotion{
           power: item_power,
           description: String::new(),
-        },
-        description: String::new(),
-      },
-    }
+      }))
+    },
   }
+}
 
   fn generate_random_trap() -> Content {
     let trap_class: i8 = rand::thread_rng().gen_range(0..=2);
 
     match trap_class {
-      0 => Content::Trap { class: TrapClass::StealAttack, damage: 1, description: String::new() },
-      1 => Content::Trap { class: TrapClass::StealDefence, damage: 1, description: String::new() },
-      _ => Content::Trap { class: TrapClass::StealLife, damage: 2, description: String::new() },
+      0 => Content::Trap(Trap { class: TrapClass::StealAttack, damage: 1, }),
+      1 => Content::Trap(Trap { class: TrapClass::StealDefence, damage: 1, }),
+      _ => Content::Trap(Trap { class: TrapClass::StealLife, damage: 2 }),
     }
   }
 
   pub fn insert_boss(&mut self) {
-    let boss = Content::Monster {
+    let boss = Content::Monster(Monster {
       name: String::new(),
       health: 30,
       attack: 10,
       level: MonsterLevel::Boss,
-      hates: Class::Any, description: String::new(),
+      hates: Class::Any,
       loot: Box::new(Map::generate_random_treasure(MonsterLevel::Boss)),
-    };
+    });
 
     let mut index = "0";
     let mut current_terrain = &mut self.dungeon;

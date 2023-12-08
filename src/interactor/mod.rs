@@ -22,7 +22,7 @@ impl Interactor {
   ) {
     if state.progress.lock().unwrap().battle_mode {
       match command {
-        _ if command.is(t!("battle.attack")) => BattleController::attack(state),
+        _ if command.is(t!("battle.fight")) => BattleController::fight(state),
         _ if command.is(t!("battle.retreat")) => BattleController::retreat(state),
         _ => MetagameController::do_nothing(),
       }

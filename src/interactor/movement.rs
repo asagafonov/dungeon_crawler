@@ -6,7 +6,7 @@ use crate::{
     Map,
     Terrain,
   },
-  data::enumerables::Content,
+  data::enumerables::{Content, TrapClass},
 };
 
 pub struct Directions {
@@ -183,25 +183,36 @@ impl MovementController {
 
   fn unravel_content(content: &Content, state: &Engine) {
     match content {
-      Content::Monster {
-        name,
-        level,
-        hates,
-        ..
-      } => {
+      Content::Monster(monster)=> {
         state.progress.lock().unwrap().battle_mode = true;
+        state.progress.lock().unwrap().monster = content.clone();
         println!("{}", t!("content.monster.encounter"));
-        println!("{} {}", t!("content.monster.behold"), name);
+        println!("{} {}", t!("content.monster.behold"), monster.name);
       },
-      Content::Trap { damage, .. } => {
+      Content::Trap(trap) => {
         println!("{}", t!("content.trap.encounter"));
 
-        state.player.lock().unwrap().health -= damage;
-        println!("{} {} {}", t!("content.trap.deals"), damage, t!("content.trap.damage"));
-        println!("{} {}", t!("player.remaining_health"), state.player.lock().unwrap().health);
+        match trap.class {
+          TrapClass::StealAttack => {
+            state.player.lock().unwrap().attack -= trap.damage;
+            println!("{}", t!("content.trap.damage_attack", damage = trap.damage));
+            println!("{}", t!("player.remaining_attack", attack = state.player.lock().unwrap().attack));
+          },
+          TrapClass::StealDefence => {
+            state.player.lock().unwrap().defence -= trap.damage;
+            println!("{}", t!("content.trap.damage_defence", damage = trap.damage));
+            println!("{}", t!("player.remaining_defence", defence = state.player.lock().unwrap().defence));
+          },
+          TrapClass::StealLife => {
+            state.player.lock().unwrap().health -= trap.damage;
+            println!("{}", t!("content.trap.damage_health", damage = trap.damage));
+            println!("{}", t!("player.remaining_health", health = state.player.lock().unwrap().health));
+          }
+        }
       },
-      Content::Treasure { .. } => {
+      Content::Treasure(item) => {
         println!("{}", t!("content.treasure.encounter"));
+        state.player.lock().unwrap().equip(item);
       }
       Content::Empty => {
         println!("{}", t!("content.empty"));
