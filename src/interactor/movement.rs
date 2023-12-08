@@ -43,10 +43,9 @@ impl MovementController {
     if directions.forward {
       println!("{}", t!("move.success"));
       let next_terrain = &terrain.children[directions.forward_route_index];
-      Self::unravel_content(&next_terrain.content, state);
       let id = &next_terrain.id;
 
-      state.progress.lock().unwrap().position = String::from(id);
+      Self::change_position(state, next_terrain, id);
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -64,10 +63,9 @@ impl MovementController {
 
     if directions.left {
       let next_terrain = &terrain.children[0];
-      Self::unravel_content(&next_terrain.content, state);
       let id = &next_terrain.id;
 
-      state.progress.lock().unwrap().position = String::from(id);
+      Self::change_position(state, next_terrain, id);
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -85,10 +83,9 @@ impl MovementController {
 
     if directions.right {
       let next_terrain = &terrain.children[&terrain.children.len() - 1];
-      Self::unravel_content(&next_terrain.content, state);
       let id = &next_terrain.id;
 
-      state.progress.lock().unwrap().position = String::from(id);
+      Self::change_position(state, next_terrain, id);
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -140,6 +137,17 @@ impl MovementController {
 
     if directions.backwards {
       println!("{}", t!("move.exploration.backwards_available"));
+    }
+  }
+
+  fn change_position(state: &Engine, next_terrain: &Terrain, id: &String) {
+    state.progress.lock().unwrap().position = String::from(id);
+
+    if !state.progress.lock().unwrap().visited_ids.contains(id) {
+      state.progress.lock().unwrap().visited_ids.push(id.to_string());
+      Self::unravel_content(&next_terrain.content, state);
+    } else {
+      println!("{}", t!("move.been_there"));
     }
   }
 

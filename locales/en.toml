@@ -29,6 +29,7 @@ success = "You crawl through a narrow passageway towards a danger lying ahead"
 success_backwards = "You return to the previous chamber. Nothing happens"
 direction_missing = "This path is blocked. Where should I go?"
 command_ambiguous = "Type \"explore\" to look around"
+been_there = "You have already been here"
 
 [move.exploration]
 look_around = "You raise your torch higher and this is what you see"
@@ -40,6 +41,7 @@ backwards_available = "- you can go backwards [command: \"go backwards\"]"
 [battle]
 attack = "attack"
 retreat = "retreat"
+you_have_fled = "You are running for your life. The monster now hates you"
 
 [content]
 empty = "The chamber is empty"
