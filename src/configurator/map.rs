@@ -143,14 +143,14 @@ impl Map {
       _ => (WeaponClass::Dagger, ArmorClass::Cloak, Class::Rogue),
     };
 
-    let max_power: i8 = match monster_level {
-      MonsterLevel::Weak => 4,
-      MonsterLevel::Average => 6,
-      MonsterLevel::Strong => 8,
-      _ => 12,
+    let (min_power, max_power) = match monster_level {
+      MonsterLevel::Weak => (3, 7),
+      MonsterLevel::Average => (5, 10),
+      MonsterLevel::Strong => (8, 13),
+      _ => (15, 15),
     };
 
-    let item_power = rand::thread_rng().gen_range(2..=max_power);
+    let item_power = rand::thread_rng().gen_range(min_power..=max_power);
 
     match treasure_class {
       0 => { Content::Treasure(Item::Weapon(Weapon {
