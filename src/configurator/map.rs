@@ -73,7 +73,7 @@ impl Map {
   }
 
   fn generate_content() -> Content {
-    let content_index: i8 = rand::thread_rng().gen_range(0..=5);
+    let content_index: i8 = rand::thread_rng().gen_range(0..=3);
     let power_level: i8 = rand::thread_rng().gen_range(0..=2);
 
     let treasure_level = match power_level {
