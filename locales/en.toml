@@ -9,6 +9,8 @@ user_input = "An error occurred while reading user input"
 started = "You are in a dungeon full of monsters. Find the boss and slay it!"
 delimeter = "************"
 turn = "Turn %{number}"
+you_died = "DEFEAT! Your bones will be forever lost in the dark of this dungeon."
+you_won = "VICTORY! You celebrate on the remnants of the monstrous guardian. This deed will be remembered."
 
 [player]
 create = "Choose your class"
