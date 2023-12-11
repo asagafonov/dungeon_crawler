@@ -43,11 +43,10 @@ impl MovementController {
 
     if directions.forward {
       println!("{}", t!("move.success"));
-      let next_terrain = &terrain.children[directions.forward_route_index];
-      let id = &next_terrain.id;
+      let next_terrain = &mut terrain.children[directions.forward_route_index];
+      let id = next_terrain.id.clone();
 
       Self::change_position(state, next_terrain, id);
-      terrain.visited = true;
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -65,11 +64,10 @@ impl MovementController {
     let directions = Self::available_directions(terrain);
 
     if directions.left {
-      let next_terrain = &terrain.children[0];
-      let id = &next_terrain.id;
+      let next_terrain = &mut terrain.children[0];
+      let id = next_terrain.id.clone();
 
       Self::change_position(state, next_terrain, id);
-      terrain.visited = true;
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -87,11 +85,11 @@ impl MovementController {
     let directions = Self::available_directions(terrain);
 
     if directions.right {
-      let next_terrain = &terrain.children[&terrain.children.len() - 1];
-      let id = &next_terrain.id;
+      let length = &terrain.children.len();
+      let next_terrain = &mut terrain.children[length - 1];
+      let id = next_terrain.id.clone();
 
       Self::change_position(state, next_terrain, id);
-      terrain.visited = true;
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -148,12 +146,13 @@ impl MovementController {
     }
   }
 
-  fn change_position(state: &Engine, next_terrain: &Terrain, id: &String) {
+  fn change_position(state: &Engine, next_terrain: &mut Terrain, id: String) {
     state.progress.lock().unwrap().position = String::from(id);
 
     if next_terrain.visited {
       println!("{}", t!("move.been_there"));
     } else {
+      next_terrain.visited = true;
       Self::unravel_content(&next_terrain.content, state);
     }
   }
