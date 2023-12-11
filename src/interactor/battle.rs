@@ -7,7 +7,8 @@ pub struct BattleController;
 
 impl BattleController {
   pub fn fight(state: &Engine) {
-    let position = &state.progress.lock().unwrap().position;
+    let progress = state.progress.lock().unwrap();
+    let position = &progress.position;
     let dungeon = &mut state.map.lock().unwrap().dungeon;
 
     let terrain = Map::find(
@@ -16,6 +17,7 @@ impl BattleController {
       0
     );
 
+    drop(progress);
     let content = &mut terrain.content;
     let attack_rate = state.player.lock().unwrap().attack;
     let defence_rate = state.player.lock().unwrap().defence;
