@@ -13,7 +13,7 @@ pub struct Directions {
   forward: bool,
   left: bool,
   right: bool,
-  backwards: bool,
+  back: bool,
   forward_route_index: usize,
 }
 
@@ -23,7 +23,7 @@ impl Directions {
       forward: false,
       left: false,
       right: false,
-      backwards: true,
+      back: true,
       forward_route_index: 0,
     }
   }
@@ -33,10 +33,11 @@ pub struct MovementController;
 
 impl MovementController {
   pub fn go_forward(state: &Engine) {
-    let dungeon = &state.map.lock().unwrap().dungeon;
-    let (_, terrain) = Map::find_by(
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
+    let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position,
+      &state.progress.lock().unwrap().position.as_str(),
+      0
     );
     let directions = Self::available_directions(terrain);
 
@@ -46,6 +47,7 @@ impl MovementController {
       let id = &next_terrain.id;
 
       Self::change_position(state, next_terrain, id);
+      terrain.visited = true;
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -54,10 +56,11 @@ impl MovementController {
 
   pub fn go_left(state: &Engine) {
     println!("{}", t!("move.success"));
-    let dungeon = &state.map.lock().unwrap().dungeon;
-    let (_, terrain) = Map::find_by(
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
+    let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position,
+      &state.progress.lock().unwrap().position.as_str(),
+      0
     );
     let directions = Self::available_directions(terrain);
 
@@ -66,6 +69,7 @@ impl MovementController {
       let id = &next_terrain.id;
 
       Self::change_position(state, next_terrain, id);
+      terrain.visited = true;
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
@@ -74,10 +78,11 @@ impl MovementController {
 
   pub fn go_right(state: &Engine) {
     println!("{}", t!("move.success"));
-    let dungeon = &state.map.lock().unwrap().dungeon;
-    let (_, terrain) = Map::find_by(
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
+    let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position,
+      &state.progress.lock().unwrap().position.as_str(),
+      0
     );
     let directions = Self::available_directions(terrain);
 
@@ -86,22 +91,24 @@ impl MovementController {
       let id = &next_terrain.id;
 
       Self::change_position(state, next_terrain, id);
+      terrain.visited = true;
     } else {
       println!("{}", t!("move.direction_missing"));
       println!("{}", t!("move.command_ambiguous"));
     }
   }
 
-  pub fn go_backwards(state: &Engine) {
-    println!("{}", t!("move.success_backwards"));
-    let dungeon = &state.map.lock().unwrap().dungeon;
-    let (_, terrain) = Map::find_by(
+  pub fn go_back(state: &Engine) {
+    println!("{}", t!("move.success_back"));
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
+    let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position,
+      &state.progress.lock().unwrap().position.as_str(),
+      0
     );
     let directions = Self::available_directions(terrain);
 
-    if directions.backwards {
+    if directions.back {
       let id = terrain.id.substring(0, terrain.id.len() - 1);
 
       state.progress.lock().unwrap().position = String::from(id);
@@ -112,11 +119,12 @@ impl MovementController {
   }
 
   pub fn explore(state: &Engine) {
-    let dungeon = &state.map.lock().unwrap().dungeon;
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
 
-    let (_, terrain) = Map::find_by(
-      &dungeon,
+    let terrain = Map::find(
+      dungeon,
       &state.progress.lock().unwrap().position,
+      0,
     );
 
     let directions = Self::available_directions(terrain);
@@ -135,19 +143,18 @@ impl MovementController {
       println!("{}", t!("move.exploration.right_available"));
     }
 
-    if directions.backwards {
-      println!("{}", t!("move.exploration.backwards_available"));
+    if directions.back {
+      println!("{}", t!("move.exploration.back_available"));
     }
   }
 
   fn change_position(state: &Engine, next_terrain: &Terrain, id: &String) {
     state.progress.lock().unwrap().position = String::from(id);
 
-    if !state.progress.lock().unwrap().visited_ids.contains(id) {
-      state.progress.lock().unwrap().visited_ids.push(id.to_string());
-      Self::unravel_content(&next_terrain.content, state);
-    } else {
+    if next_terrain.visited {
       println!("{}", t!("move.been_there"));
+    } else {
+      Self::unravel_content(&next_terrain.content, state);
     }
   }
 
@@ -175,7 +182,7 @@ impl MovementController {
     }
 
     if terrain.id == "0" {
-      directions.backwards = false;
+      directions.back = false;
     }
 
     directions
@@ -185,7 +192,6 @@ impl MovementController {
     match content {
       Content::Monster(monster)=> {
         state.progress.lock().unwrap().battle_mode = true;
-        state.progress.lock().unwrap().monster = content.clone();
         println!("{}", t!("content.monster.encounter"));
         println!("{} {}", t!("content.monster.behold"), monster.name);
       },

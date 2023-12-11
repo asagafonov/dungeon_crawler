@@ -1,5 +1,5 @@
 use rust_i18n::t;
-use crate::{engine::Engine, data::enumerables::Content};
+use crate::{engine::Engine, configurator::map::Map, data::enumerables::Content};
 
 use super::movement::MovementController;
 
@@ -7,26 +7,40 @@ pub struct BattleController;
 
 impl BattleController {
   pub fn fight(state: &Engine) {
-    // if let Content::Monster(mut monster) = state.progress.lock().unwrap().monster {
-    //   let attack_rate = &state.player.lock().unwrap().attack;
-    //   monster.health -= attack_rate;
-    //   println!("{}", t!("battle.hurt_monster", damage = attack_rate));
-    //   println!("{}", t!("battle.monster.health_left", health = monster.health));
+    let position = &state.progress.lock().unwrap().position;
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
 
-    //   if monster.health <= 0 {
-    //     state.progress.lock().unwrap().battle_mode = false;
-    //     println!("{}", t!("battle.monster_defeated"));
-    //   }
+    let terrain = Map::find(
+      dungeon,
+      position.as_str(),
+      0
+    );
 
-    //   let monster_attack_rate = monster.attack;
-    //   println!("{}", t!("battle.monster_revenge", damage = monster_attack_rate));
-    //   state.player.lock().unwrap().health -= monster_attack_rate;
-    // }
+    let content = &mut terrain.content;
+    let attack_rate = state.player.lock().unwrap().attack;
+    let defence_rate = state.player.lock().unwrap().defence;
+
+    match content {
+      Content::Monster(monster) => {
+        monster.health -= attack_rate;
+        println!("{}", t!("battle.hurt_monster", damage = attack_rate));
+        println!("{}", t!("battle.monster.health_left", health = monster.health));
+
+        if monster.health <= 0 {
+          println!("{}", t!("battle.monster_defeated"));
+          state.progress.lock().unwrap().battle_mode = false;
+        } else {
+          println!("{}", t!("battle.monster_revenge", damage = monster.attack));
+          state.player.lock().unwrap().health -= (monster.attack - defence_rate / 2) as i8;
+        }
+      }
+      _ => {}
+    }
   }
 
   pub fn retreat(state: &Engine) {
     println!("{}", t!("battle.you_have_fled"));
-    MovementController::go_backwards(state);
+    MovementController::go_back(state);
     state.progress.lock().unwrap().battle_mode = false;
   }
 }

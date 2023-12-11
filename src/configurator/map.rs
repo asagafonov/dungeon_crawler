@@ -1,4 +1,5 @@
 use rand::Rng;
+use substring::Substring;
 use crate::data::{
   enumerables::{
     Content,
@@ -36,20 +37,14 @@ impl Map {
     Map { dungeon }
   }
 
-  pub fn find_by<'a>(dungeon: &'a Terrain, id: &String) -> (bool, &'a Terrain) {
-    if id.eq(&dungeon.id) {
-      return (true, dungeon);
+  pub fn find<'a>(terrain: &'a mut Terrain, id: &str, count: usize) -> &'a mut Terrain {
+    if terrain.id.eq(id) {
+      return terrain;
     }
 
-    for child in &dungeon.children {
-      let (found_id, terrain) = Self::find_by(&child, id);
+    let next_child_id: usize = id.substring(count + 1, count + 2).parse().unwrap();
 
-      if found_id {
-        return (true, terrain)
-      }
-    }
-
-    (false, dungeon)
+    Self::find(&mut terrain.children[next_child_id], id, count + 1)
   }
 
   fn create_terrain(id: &String) -> Terrain {
@@ -72,7 +67,7 @@ impl Map {
     Terrain {
       id: String::from(id),
       children,
-      content: if id == "0" { Content::Empty} else { Map::generate_content() },
+      content: if id == "0" { Content::Empty } else { Map::generate_content() },
       visited: false,
     }
   }

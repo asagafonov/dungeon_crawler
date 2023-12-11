@@ -18,7 +18,7 @@ fn can_move_around() {
   assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("00"));
 
   // can go back
-  MovementController::go_backwards(&mut state);
+  MovementController::go_back(&mut state);
   assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("0"));
 
   // can go right
@@ -26,7 +26,7 @@ fn can_move_around() {
   assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("01"));
 
   // can go back again
-  MovementController::go_backwards(&mut state);
+  MovementController::go_back(&mut state);
   assert_eq!(String::from(&state.progress.lock().unwrap().position), String::from("0"));
 
   // going forward doesn't change position, as forward direction doesn't exist

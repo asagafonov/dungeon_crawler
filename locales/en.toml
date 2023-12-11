@@ -7,6 +7,8 @@ user_input = "An error occurred while reading user input"
 
 [game]
 started = "You are in a dungeon full of monsters. Find the boss and slay it!"
+delimeter = "************"
+turn = "Turn %{number}"
 
 [player]
 create = "Choose your class"
@@ -24,12 +26,12 @@ random = "random class"
 
 [move]
 forward = "go forward"
-backwards = "go backwards"
+back = "go back"
 left = "go left"
 right = "go right"
 explore = "explore"
 success = "You crawl through a narrow passageway towards a danger lying ahead"
-success_backwards = "You return to the previous chamber. Nothing happens"
+success_back = "You return to the previous chamber. Nothing happens"
 direction_missing = "This path is blocked. Where should I go?"
 command_ambiguous = "Type \"explore\" to look around"
 been_there = "You have already been here"
@@ -39,7 +41,7 @@ look_around = "You raise your torch higher and this is what you see"
 forward_available = "- you can go forward [command: \"go forward\"]"
 left_available = "- you can go left [command: \"go left\"]"
 right_available = "- you can go right [command: \"go right\"]"
-backwards_available = "- you can go backwards [command: \"go backwards\"]"
+back_available = "- you can go back [command: \"go back\"]"
 
 [battle]
 fight = "fight"
@@ -50,7 +52,7 @@ monster_defeated = "Your terrible opponent perishes"
 monster_revenge = "The enraged monster fights back. It deals %{damage} damage"
 
 [battle.monster]
-health_left = "Your terrible opponent is at %{health} health"
+health_left = "Your opponent is at %{health} health"
 
 [content]
 empty = "The chamber is empty"

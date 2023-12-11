@@ -32,7 +32,7 @@ impl Interactor {
         _ if command.is(t!("move.forward")) => MovementController::go_forward(state),
         _ if command.is(t!("move.left")) => MovementController::go_left(state),
         _ if command.is(t!("move.right")) => MovementController::go_right(state),
-        _ if command.is(t!("move.backwards")) => MovementController::go_backwards(state),
+        _ if command.is(t!("move.back")) => MovementController::go_back(state),
         _ if command.is(t!("move.explore")) => MovementController::explore(state),
 
         // meta

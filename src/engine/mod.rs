@@ -24,15 +24,6 @@ impl Engine {
     println!("{}", t!("game.started"));
 
     while !self.progress.lock().unwrap().is_boss_defeated & (self.player.lock().unwrap().health > 0) {
-      // let (
-      //   terrain_exists,
-      //   current_terrain
-      // ) = Map::find_by(&self.map.dungeon, &self.progress.position);
-
-      // if !terrain_exists {
-      //   panic!("out of bounds");
-      // }
-
       let mut user_input = String::new();
 
       io::stdin()
@@ -43,5 +34,7 @@ impl Engine {
 
       Interactor::execute(command, self);
     }
+
+    println!("game over");
   }
 }
