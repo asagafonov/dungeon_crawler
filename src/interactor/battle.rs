@@ -1,5 +1,9 @@
 use rust_i18n::t;
-use crate::{engine::Engine, configurator::map::Map, data::enumerables::Content};
+use crate::{
+  engine::Engine,
+  configurator::map::Map,
+  data::enumerables::{Content, MonsterLevel},
+};
 
 use super::movement::MovementController;
 
@@ -22,21 +26,22 @@ impl BattleController {
     let attack_rate = state.player.lock().unwrap().attack;
     let defence_rate = state.player.lock().unwrap().defence;
 
-    match content {
-      Content::Monster(monster) => {
-        monster.health -= attack_rate;
-        println!("{}", t!("battle.hurt_monster", damage = attack_rate));
-        println!("{}", t!("battle.monster.health_left", health = monster.health));
+    if let Content::Monster(monster) = content {
+      monster.health -= attack_rate;
+      println!("{}", t!("battle.hurt_monster", damage = attack_rate));
+      println!("{}", t!("battle.monster.health_left", health = monster.health));
 
-        if monster.health <= 0 {
-          println!("{}", t!("battle.monster_defeated"));
-          state.progress.lock().unwrap().battle_mode = false;
-        } else {
-          println!("{}", t!("battle.monster_revenge", damage = monster.attack));
-          state.player.lock().unwrap().health -= (monster.attack - defence_rate / 2) as i8;
+      if monster.health <= 0 {
+        println!("{}", t!("battle.monster_defeated"));
+        state.progress.lock().unwrap().battle_mode = false;
+
+        if let MonsterLevel::Boss = monster.level {
+          state.progress.lock().unwrap().is_boss_defeated = true;
         }
+      } else {
+        println!("{}", t!("battle.monster_revenge", damage = monster.attack));
+        state.player.lock().unwrap().health -= monster.attack - defence_rate / 2;
       }
-      _ => {}
     }
   }
 
