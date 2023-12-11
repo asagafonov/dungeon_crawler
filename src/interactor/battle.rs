@@ -37,6 +37,10 @@ impl BattleController {
 
         if let MonsterLevel::Boss = monster.level {
           state.progress.lock().unwrap().is_boss_defeated = true;
+        } else {
+          println!("{}", t!("battle.loot_discovered"));
+          let treasure = &monster.loot;
+          state.player.lock().unwrap().equip(treasure);
         }
       } else {
         println!("{}", t!("battle.monster_revenge", damage = monster.attack));

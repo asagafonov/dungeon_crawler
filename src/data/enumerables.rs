@@ -138,27 +138,6 @@ pub enum ArmorClass {
 }
 
 #[derive(Clone)]
-pub enum Treasure {
-  Weapon {
-    class: WeaponClass,
-    name: String,
-    attack: i8,
-    description: String
-  },
-  Armor {
-    class: ArmorClass,
-    name: String,
-    defence: i8,
-    description: String
-  },
-  HealthPotion {
-    power: i8,
-    description: String
-  },
-  Empty
-}
-
-#[derive(Clone)]
 pub enum TrapClass {
   StealLife,
   StealAttack,
@@ -187,7 +166,7 @@ pub struct Monster {
   pub attack: i8,
   pub level: MonsterLevel,
   pub hates: Class,
-  pub loot: Box<Content>,
+  pub loot: Item,
 }
 
 #[derive(Clone)]

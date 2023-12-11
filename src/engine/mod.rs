@@ -37,10 +37,10 @@ impl Engine {
 
     if self.player.lock().unwrap().health <= 0 {
       println!("{}", t!("game.you_died"));
-    }
-
-    if self.progress.lock().unwrap().is_boss_defeated {
+    } else if self.progress.lock().unwrap().is_boss_defeated {
       println!("{}", t!("game.you_won"));
+    } else {
+      println!("{}", t!("game.you_quit"));
     }
   }
 }

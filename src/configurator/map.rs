@@ -84,7 +84,7 @@ impl Map {
 
     match content_index {
       0 => Map::generate_random_monster(),
-      1 => Map::generate_random_treasure(treasure_level),
+      1 => Content::Treasure(Map::generate_random_treasure(treasure_level)),
       2 => Map::generate_random_trap(),
       _ => Content::Empty,
     }
@@ -107,7 +107,7 @@ impl Map {
         attack: 3,
         level: MonsterLevel::Weak,
         hates: opponent,
-        loot: Box::new(Map::generate_random_treasure(MonsterLevel::Weak)),
+        loot: Map::generate_random_treasure(MonsterLevel::Weak),
       }),
       2 => Content::Monster(Monster {
         name: String::new(),
@@ -115,7 +115,7 @@ impl Map {
         attack: 5,
         level: MonsterLevel::Average,
         hates: opponent,
-        loot: Box::new(Map::generate_random_treasure(MonsterLevel::Average)),
+        loot: Map::generate_random_treasure(MonsterLevel::Average),
       }),
       _ => Content::Monster(Monster {
         name: String::new(),
@@ -123,12 +123,12 @@ impl Map {
         attack: 7,
         level: MonsterLevel::Strong,
         hates: opponent,
-        loot: Box::new(Map::generate_random_treasure(MonsterLevel::Strong)),
+        loot: Map::generate_random_treasure(MonsterLevel::Strong),
       }),
     }
   }
 
-  fn generate_random_treasure(monster_level: MonsterLevel) -> Content {
+  fn generate_random_treasure(monster_level: MonsterLevel) -> Item {
     let treasure_class: i8 = rand::thread_rng().gen_range(0..=2);
     let character: i8 = rand::thread_rng().gen_range(0..=2);
 
@@ -148,27 +148,27 @@ impl Map {
     let item_power = rand::thread_rng().gen_range(min_power..=max_power);
 
     match treasure_class {
-      0 => { Content::Treasure(Item::Weapon(Weapon {
+      0 => { Item::Weapon(Weapon {
           class: weapon_class,
           name: String::new(),
           attack: item_power,
           description: String::new(),
           belongs_to: hero_class,
-        }))
+        })
       },
-      1 => { Content::Treasure(Item::Armor(Armor {
+      1 => { Item::Armor(Armor {
           class: armor_class,
           name: String::new(),
           defence: item_power,
           description: String::new(),
           belongs_to: hero_class,
-        }))
+        })
       },
       _ => {
-        Content::Treasure(Item::HealthPotion( HealthPotion{
+        Item::HealthPotion( HealthPotion{
           power: item_power,
           description: String::new(),
-      }))
+      })
     },
   }
 }
@@ -190,7 +190,7 @@ impl Map {
       attack: 10,
       level: MonsterLevel::Boss,
       hates: Class::Any,
-      loot: Box::new(Map::generate_random_treasure(MonsterLevel::Boss)),
+      loot: Map::generate_random_treasure(MonsterLevel::Boss),
     });
 
     let mut index = "0";
