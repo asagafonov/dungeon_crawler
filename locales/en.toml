@@ -77,9 +77,10 @@ encounter = "Something is glimmering in the dark. Could it be of any use?"
 
 [metagame]
 rules = "rules"
-actions = "actions"
-idle = "A crazy idea pops into your head... but no, no... better think twice"
-role = "You are a mighty"
+status = "status"
+idle = "A crazy idea pops into your head... but no, no... better think twice."
+idle_in_combat = "No time for foolish thoughts. Fight or run for your life!"
+role = "You are a mighty %{class}. Health: %{health}, attack: %{attack}, defence: %{defence}."
 exit = "exit"
 
 [items]

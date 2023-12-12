@@ -1,17 +1,24 @@
 use rust_i18n::t;
-use crate::{engine::Engine, data::types::Class};
+use crate::engine::Engine;
+use crate::shared::helpers::class_as_string;
+
 
 pub struct MetagameController;
 
 impl MetagameController {
   pub fn show_status(state: &Engine) {
+    let player = state.player.lock().unwrap();
+
     println!(
-      "{} {}!",
-      t!("metagame.role"),
-      Self::class_as_string(&state.player.lock().unwrap().class),
+      "{}",
+      t!(
+        "metagame.role",
+        class = class_as_string(&player.class),
+        health = &player.health,
+        attack = &player.attack,
+        defence = &player.defence,
+      ),
      );
-
-
   }
 
   pub fn show_rules() {
@@ -27,16 +34,11 @@ impl MetagameController {
     println!("{}", t!("metagame.idle"));
   }
 
-  pub fn exit(state: &Engine) {
-    state.progress.lock().unwrap().need_evac = true;
+  pub fn do_nothing_in_combat() {
+    println!("{}", t!("metagame.idle_in_combat"));
   }
 
-  fn class_as_string(class: &Class) -> String {
-    match class {
-      Class::Warrior => t!("player.class.warrior"),
-      Class::Mage => t!("player.class.mage"),
-      Class::Rogue => t!("player.class.rogue"),
-      Class::Any => String::new(),
-    }
+  pub fn exit(state: &Engine) {
+    state.progress.lock().unwrap().need_evac = true;
   }
 }
