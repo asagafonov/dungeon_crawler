@@ -7,6 +7,7 @@ pub struct Progress {
   pub traps_survived: i8,
   pub items_found: i8,
   pub score: i16,
+  pub need_evac: bool,
 }
 
 impl Progress {
@@ -20,6 +21,7 @@ impl Progress {
       traps_survived: 0,
       items_found: 0,
       score: 0,
+      need_evac: false,
     }
   }
 }

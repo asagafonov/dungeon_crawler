@@ -1,4 +1,5 @@
 use rust_i18n::t;
+use crate::shared::helpers::class_as_string;
 
 #[derive(Clone)]
 pub enum Class {
@@ -22,8 +23,8 @@ impl Player {
     match item {
       Item::Weapon(weapon) => {
         let current_weapon = &self.weapon;
-        let weapon_class = Player::get_class_as_string(&weapon.belongs_to);
-        let hero_class = Player::get_class_as_string(&self.class);
+        let weapon_class = class_as_string(&weapon.belongs_to);
+        let hero_class = class_as_string(&self.class);
         println!("{}", t!("items.define", item = Player::get_weapon_as_string(&current_weapon.class), power = current_weapon.attack));
 
         if weapon_class != hero_class {
@@ -40,8 +41,8 @@ impl Player {
       },
       Item::Armor(armor) => {
         let current_armor = &self.armor;
-        let armor_class = Player::get_class_as_string(&armor.belongs_to);
-        let hero_class = Player::get_class_as_string(&self.class);
+        let armor_class = class_as_string(&armor.belongs_to);
+        let hero_class = class_as_string(&self.class);
         println!("{}", t!("items.define", item = Player::get_armor_as_string(&current_armor.class), power = current_armor.defence));
 
         if armor_class != hero_class {
@@ -62,15 +63,6 @@ impl Player {
         println!("{}", t!("player.health_left", health = self.health));
       },
       Item::Empty => {}
-    }
-  }
-
-  fn get_class_as_string(val: &Class) -> String {
-    match val {
-      Class::Warrior => "warrior".to_string(),
-      Class::Mage => "mage".to_string(),
-      Class::Rogue => "rogue".to_string(),
-      _ => "unknown".to_string(),
     }
   }
 

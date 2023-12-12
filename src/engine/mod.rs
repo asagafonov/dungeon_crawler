@@ -24,6 +24,10 @@ impl Engine {
     println!("{}", t!("game.started"));
 
     while !self.progress.lock().unwrap().is_boss_defeated & (self.player.lock().unwrap().health > 0) {
+      if self.progress.lock().unwrap().need_evac {
+        break;
+      }
+
       let mut user_input = String::new();
 
       io::stdin()

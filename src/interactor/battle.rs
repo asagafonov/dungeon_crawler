@@ -3,6 +3,7 @@ use crate::{
   engine::Engine,
   configurator::map::Map,
   data::enumerables::{Content, MonsterLevel},
+  shared::helpers::class_as_string,
 };
 
 use super::movement::MovementController;
@@ -43,13 +44,35 @@ impl BattleController {
           state.player.lock().unwrap().equip(treasure);
         }
       } else {
-        println!("{}", t!("battle.monster_revenge", damage = monster.attack));
-        state.player.lock().unwrap().health -= monster.attack - defence_rate / 2;
+        let monster_attack_rate: i8 = if class_as_string(&monster.hates) == class_as_string(&state.player.lock().unwrap().class) {
+          monster.attack + 2
+        } else {
+          monster.attack
+        };
+        println!("{}", t!("battle.monster_revenge", damage = monster_attack_rate));
+        state.player.lock().unwrap().health -= monster_attack_rate - defence_rate / 2;
       }
     }
   }
 
   pub fn retreat(state: &Engine) {
+    let progress = state.progress.lock().unwrap();
+    let position = &progress.position;
+    let dungeon = &mut state.map.lock().unwrap().dungeon;
+
+    let terrain = Map::find(
+      dungeon,
+      position.as_str(),
+      0
+    );
+
+    let content = &mut terrain.content;
+
+    if let Content::Monster(monster) = content {
+      monster.hates = state.player.lock().unwrap().class.clone();
+      monster.health += 10;
+    }
+
     println!("{}", t!("battle.you_have_fled"));
     MovementController::go_back(state);
     state.progress.lock().unwrap().battle_mode = false;

@@ -2,6 +2,7 @@ pub mod configurator;
 pub mod data;
 pub mod interactor;
 pub mod engine;
+mod shared;
 
 use crate::configurator::{
     configure_state,

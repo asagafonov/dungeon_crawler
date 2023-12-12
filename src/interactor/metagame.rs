@@ -28,6 +28,7 @@ impl MetagameController {
   }
 
   pub fn exit(state: &Engine) {
+    state.progress.lock().unwrap().need_evac = true;
   }
 
   fn class_as_string(class: &Class) -> String {

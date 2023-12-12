@@ -49,7 +49,7 @@ back_available = "- you can go back [command: \"go back\"]"
 [battle]
 fight = "fight"
 retreat = "retreat"
-you_have_fled = "You are running for your life. The monster now hates you"
+you_have_fled = "You are running for your life. The monster now hates you, its wounds recover fast."
 hurt_monster = "Your strike deals %{damage} damage"
 monster_defeated = "Your terrible opponent perishes"
 monster_revenge = "The enraged monster fights back. It deals %{damage} damage"
@@ -63,7 +63,8 @@ empty = "The chamber is empty"
 
 [content.monster]
 encounter = "A terrible monster arises before you. It is going to attack!"
-behold = "Behold"
+behold = "Behold %{name}!"
+is_hater = "This monster hates you and your kin."
 
 [content.trap]
 encounter = "You make a bold step and a weird looking mechanism starts to spin. It's a trap!"
@@ -79,6 +80,7 @@ rules = "rules"
 actions = "actions"
 idle = "A crazy idea pops into your head... but no, no... better think twice"
 role = "You are a mighty"
+exit = "exit"
 
 [items]
 define = "You discover a magnificent %{item}: %{power} power"
