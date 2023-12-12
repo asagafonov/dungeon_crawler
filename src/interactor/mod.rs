@@ -6,7 +6,6 @@ pub mod movement;
 pub mod metagame;
 
 use crate::engine::Engine;
-
 use crate::interactor::{
   battle::BattleController,
   movement::MovementController,

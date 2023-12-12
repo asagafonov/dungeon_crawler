@@ -2,11 +2,10 @@ use rust_i18n::t;
 use crate::{
   engine::Engine,
   configurator::map::Map,
-  data::enumerables::{Content, MonsterLevel},
+  data::types::{Content, MonsterLevel},
   shared::helpers::class_as_string,
+  interactor::movement::MovementController,
 };
-
-use super::movement::MovementController;
 
 pub struct BattleController;
 

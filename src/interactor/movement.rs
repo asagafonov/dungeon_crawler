@@ -2,11 +2,8 @@ use rust_i18n::t;
 use substring::Substring;
 use crate::{
   engine::Engine,
-  configurator::map::{
-    Map,
-    Terrain,
-  },
-  data::enumerables::{Content, TrapClass},
+  configurator::map::{Map, Terrain},
+  data::types::{Content, TrapClass},
   shared::helpers::class_as_string,
 };
 

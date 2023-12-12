@@ -1,2 +1,2 @@
-pub mod enumerables;
+pub mod types;
 pub mod constants;

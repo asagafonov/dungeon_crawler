@@ -1,4 +1,4 @@
-use crate::data::enumerables::Player;
+use crate::configurator::player::Player;
 use self::{map::Map, player::create_player, progress::Progress};
 
 pub mod player;

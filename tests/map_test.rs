@@ -1,7 +1,7 @@
 use dungeon_crawler::{
   configurator::map::{Map, Terrain},
   data::{
-    enumerables::{Content, Monster, MonsterLevel},
+    types::{Content, Monster, MonsterLevel},
     constants::MAX_DUNGEON_DEPTH,
   }
 };

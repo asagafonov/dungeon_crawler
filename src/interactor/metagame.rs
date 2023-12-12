@@ -1,7 +1,7 @@
 use rust_i18n::t;
-use crate::{engine::Engine, data::enumerables::Class};
+use crate::{engine::Engine, data::types::Class};
 
-pub(crate) struct MetagameController;
+pub struct MetagameController;
 
 impl MetagameController {
   pub fn show_status(state: &Engine) {

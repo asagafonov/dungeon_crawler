@@ -1,4 +1,5 @@
-use dungeon_crawler::data::enumerables::{Player, Class, Weapon, WeaponClass, Armor, ArmorClass, Item};
+use dungeon_crawler::data::types::{Class, Weapon, WeaponClass, Armor, ArmorClass, Item};
+use dungeon_crawler::configurator::player::Player;
 
 #[test]
 fn stronger_weapon_is_equipped() {

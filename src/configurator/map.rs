@@ -1,7 +1,7 @@
 use rand::Rng;
 use substring::Substring;
 use crate::data::{
-  enumerables::{
+  types::{
     Content,
     Class,
     MonsterLevel,

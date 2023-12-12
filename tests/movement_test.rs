@@ -4,8 +4,9 @@ use dungeon_crawler::configurator::{
     Map,
   },
   progress::Progress,
+  player::Player,
 };
-use dungeon_crawler::data::enumerables::{Content, Player, Class, Weapon, Armor, WeaponClass, ArmorClass};
+use dungeon_crawler::data::types::{Content, Class, Weapon, Armor, WeaponClass, ArmorClass};
 use dungeon_crawler::engine::Engine;
 use dungeon_crawler::interactor::movement::MovementController;
 

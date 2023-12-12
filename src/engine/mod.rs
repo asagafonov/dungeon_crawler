@@ -1,8 +1,7 @@
 use std::io;
 use std::sync::{Arc, Mutex};
 
-use crate::data::enumerables::Player;
-use crate::configurator::{map::Map, progress::Progress};
+use crate::configurator::{map::Map, player::Player, progress::Progress};
 use crate::interactor::Interactor;
 
 pub struct Engine {

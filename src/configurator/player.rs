@@ -1,9 +1,68 @@
 use rand::Rng;
 use std::io;
 use rust_i18n::t;
-use crate::data::enumerables::{
-  Player, Class, Weapon, Armor, WeaponClass, ArmorClass,
+use crate::data::types::{
+  Item, Class, Weapon, Armor, WeaponClass, ArmorClass,
 };
+use crate::shared::helpers::{class_as_string, weapon_as_string, armor_as_string};
+
+pub struct Player {
+  pub class: Class,
+  pub health: i8,
+  pub attack: i8,
+  pub defence: i8,
+  pub weapon: Weapon,
+  pub armor: Armor,
+}
+
+impl Player {
+  pub fn equip(&mut self, item: &Item) {
+    match item {
+      Item::Weapon(weapon) => {
+        let current_weapon = &self.weapon;
+        let weapon_class = class_as_string(&weapon.belongs_to);
+        let hero_class = class_as_string(&self.class);
+        println!("{}", t!("items.define", item = weapon_as_string(&current_weapon.class), power = current_weapon.attack));
+
+        if weapon_class != hero_class {
+          println!("{}", t!("items.unusable"));
+          return;
+        }
+
+        if weapon.attack > current_weapon.attack {
+          self.attack = self.attack - current_weapon.attack + weapon.attack;
+          println!("{}", t!("items.equipped_successfully"));
+        } else {
+          println!("{}", t!("items.too_weak"));
+        }
+      },
+      Item::Armor(armor) => {
+        let current_armor = &self.armor;
+        let armor_class = class_as_string(&armor.belongs_to);
+        let hero_class = class_as_string(&self.class);
+        println!("{}", t!("items.define", item = armor_as_string(&current_armor.class), power = current_armor.defence));
+
+        if armor_class != hero_class {
+          println!("{}", t!("items.unusable"));
+          return;
+        }
+
+        if armor.defence > current_armor.defence {
+          self.defence = self.defence - current_armor.defence + armor.defence;
+          println!("{}", t!("items.equipped_successfully"));
+        } else {
+          println!("{}", t!("items.too_weak"));
+        }
+      },
+      Item::HealthPotion(health_potion) => {
+        println!("{}", t!("items.drink_potion", power = health_potion.power));
+        self.health += health_potion.power;
+        println!("{}", t!("player.health_left", health = self.health));
+      },
+      Item::Empty => {}
+    }
+  }
+}
 
 pub fn create_player() -> Player {
   println!("{}", t!("player.create"));
