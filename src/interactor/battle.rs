@@ -1,10 +1,10 @@
 use rust_i18n::t;
+use substring::Substring;
 use crate::{
   engine::Engine,
   configurator::map::Map,
   data::types::{Content, MonsterLevel},
   shared::helpers::class_as_string,
-  interactor::movement::MovementController,
 };
 
 pub struct BattleController;
@@ -55,7 +55,7 @@ impl BattleController {
   }
 
   pub fn retreat(state: &Engine) {
-    let progress = state.progress.lock().unwrap();
+    let progress = &mut state.progress.lock().unwrap();
     let position = &progress.position;
     let dungeon = &mut state.map.lock().unwrap().dungeon;
 
@@ -70,10 +70,12 @@ impl BattleController {
     if let Content::Monster(monster) = content {
       monster.hates = state.player.lock().unwrap().class.clone();
       monster.health += 10;
+      terrain.visited = false;
     }
 
     println!("{}", t!("battle.you_have_fled"));
-    MovementController::go_back(state);
-    state.progress.lock().unwrap().battle_mode = false;
+    let id = terrain.id.substring(0, terrain.id.len() - 1);
+    progress.position = String::from(id);
+    progress.battle_mode = false;
   }
 }
