@@ -114,6 +114,11 @@ impl MovementController {
     }
   }
 
+  pub fn go_to_dungeon_entrance(state: &Engine) {
+    println!("{}", t!("move.return_to_dungeon_entrance"));
+    state.progress.lock().unwrap().position = String::from("0");
+  }
+
   pub fn explore(state: &Engine) {
     let dungeon = &mut state.map.lock().unwrap().dungeon;
 
@@ -141,6 +146,7 @@ impl MovementController {
 
     if directions.back {
       println!("{}", t!("move.exploration.back_available"));
+      println!("{}", t!("move.exploration.entrance_available"));
     }
   }
 
@@ -193,7 +199,7 @@ impl MovementController {
         println!("{}", t!("content.monster.behold", name = monster.name));
 
         if class_as_string(&monster.hates) == class_as_string(&state.player.lock().unwrap().class) {
-          println!("content.monster.is_hater");
+          println!("{}", t!("content.monster.is_hater"));
         }
       },
       Content::Trap(trap) => {

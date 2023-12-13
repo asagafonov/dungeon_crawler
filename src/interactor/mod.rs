@@ -23,6 +23,7 @@ impl Interactor {
       match command {
         _ if command.is(t!("battle.fight")) => BattleController::fight(state),
         _ if command.is(t!("battle.retreat")) => BattleController::retreat(state),
+
         _ if command.is(t!("metagame.exit")) => MetagameController::exit(state),
         _ if command.is(t!("metagame.status")) => MetagameController::show_status(state),
         _ => MetagameController::do_nothing_in_combat(),
@@ -34,6 +35,7 @@ impl Interactor {
         _ if command.is(t!("move.right")) => MovementController::go_right(state),
         _ if command.is(t!("move.back")) => MovementController::go_back(state),
         _ if command.is(t!("move.explore")) => MovementController::explore(state),
+        _ if command.is(t!("move.entrance")) => MovementController::go_to_dungeon_entrance(state),
 
         _ if command.is(t!("metagame.rules")) => MetagameController::show_rules(),
         _ if command.is(t!("metagame.status")) => MetagameController::show_status(state),
