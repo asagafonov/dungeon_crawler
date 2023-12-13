@@ -3,7 +3,7 @@ use substring::Substring;
 use crate::{
   engine::Engine,
   configurator::map::{Map, Terrain},
-  data::types::{Content, TrapClass},
+  data::types::{Content, TrapClass, MonsterLevel},
   shared::helpers::class_as_string,
 };
 
@@ -196,10 +196,14 @@ impl MovementController {
       Content::Monster(monster)=> {
         state.progress.lock().unwrap().battle_mode = true;
         println!("{}", t!("content.monster.encounter"));
-        println!("{}", t!("content.monster.behold", name = monster.name));
+        println!("{}", t!("content.monster.behold", name = monster.name, health = monster.health, attack = monster.attack));
 
         if class_as_string(&monster.hates) == class_as_string(&state.player.lock().unwrap().class) {
           println!("{}", t!("content.monster.is_hater"));
+        }
+
+        if let MonsterLevel::Boss = monster.level {
+          println!("{}", t!("content.monster.boss_found"));
         }
       },
       Content::Trap(trap) => {

@@ -66,8 +66,9 @@ empty = "The chamber is empty"
 
 [content.monster]
 encounter = "A terrible monster arises before you. It is going to attack!"
-behold = "Behold %{name}!"
+behold = "Behold %{name}! Health: %{health}, attack: %{attack}."
 is_hater = "This monster hates you and your kin."
+boss_found = "This is the monster you were looking for! Slay it and you will be forever praised!"
 
 [content.trap]
 encounter = "You make a bold step and a weird looking mechanism starts to spin. It's a trap!"
