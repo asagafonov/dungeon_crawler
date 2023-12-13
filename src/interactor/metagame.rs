@@ -22,12 +22,27 @@ impl MetagameController {
   }
 
   pub fn show_rules() {
-    println!("{}", t!("metagame.goal"));
-    println!("{}", t!("metagame.movement"));
-    println!("{}", t!("metagame.monsters"));
-    println!("{}", t!("metagame.treasures"));
-    println!("{}", t!("metagame.traps"));
-    println!("{}", t!("metagame.good_luck"));
+    println!("{}", t!("game.delimeter"));
+    println!();
+    println!("{}", t!("metagame.description.goal"));
+    println!("{}", t!("metagame.description.movement", explore = t!("move.explore")));
+    println!("{}", t!("metagame.description.monsters"));
+    println!("{}", t!("metagame.description.battle", fight = t!("battle.fight")));
+    println!("{}", t!("metagame.description.retreat", retreat = t!("battle.retreat")));
+    println!("{}", t!("metagame.description.traps"));
+    println!("{}", t!("metagame.description.treasures"));
+    println!("{}", t!("metagame.description.stuck", help = t!("metagame.help_me")));
+    println!("{}", t!("metagame.description.good_luck"));
+    println!();
+    println!("{}", t!("game.delimeter"));
+  }
+
+  pub fn help() {
+    println!("{}", t!("metagame.help.movement", explore = t!("move.explore")));
+  }
+
+  pub fn help_in_combat() {
+    println!("{}", t!("metagame.help.battle", fight = t!("battle.fight"), retreat = t!("battle.retreat")));
   }
 
   pub fn do_nothing() {

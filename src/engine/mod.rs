@@ -21,6 +21,7 @@ impl Engine {
 
   pub fn run(&self) {
     println!("{}", t!("game.started"));
+    println!("{}", t!("game.show_rules", rules = t!("metagame.rules")));
 
     while !self.progress.lock().unwrap().is_boss_defeated & (self.player.lock().unwrap().health > 0) {
       if self.progress.lock().unwrap().need_evac {

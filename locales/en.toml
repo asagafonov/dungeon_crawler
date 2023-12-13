@@ -7,8 +7,8 @@ user_input = "An error occurred while reading user input"
 
 [game]
 started = "You are in a dungeon full of monsters. Find the boss and slay it!"
-delimeter = "************"
-turn = "Turn %{number}"
+show_rules = "Type \"%{rules}\" if you don't know what is going on."
+delimeter = "************************"
 you_died = "DEFEAT! Your bones will be forever lost in the dark of this dungeon."
 you_won = "VICTORY! You celebrate on the remnants of the monstrous guardian. This deed will be remembered."
 you_quit = "Life is the most valuable treasure, you say to yourself, and leave the dungeon immediately."
@@ -85,6 +85,23 @@ idle = "A crazy idea pops into your head... but no, no... better think twice."
 idle_in_combat = "No time for foolish thoughts. Fight or run for your life!"
 role = "You are a mighty %{class}. Health: %{health}, attack: %{attack}, defence: %{defence}."
 exit = "exit"
+help_me = "help"
+
+[metagame.description]
+goal = "* Your goal is to find and slay the strongest monster in the dungeon, which dwells somewhere on the deepest levels."
+movement = "* Use commands to move around. Type \"%{explore}\" to see available directions for your current position."
+monsters = "* During your journey you will meet various enemies. You cannot pass until you slay the monster."
+battle = "* To defeat monsters use the \"%{fight}\" command. You strike, then your enemy retaliates until one of you is down."
+retreat = "* If you feel that you cannot win this fight, flee. However, your opponent will grow stronger and replenish some health."
+traps = "* Some chambers have hidden traps that will inflict certain damage on you."
+treasures = "* Fortunately, you can also come across some goodies. Defeated monsters drop loot as well."
+stuck = "* If you are stuck, use the \"%{help}\" command."
+good_luck = "* Good luck, mighty hero! The dungeon awaits!"
+
+[metagame.help]
+movement = "Type \"%{explore}\" to see available directions. Then type any of the available commands. Return to dungeon entrance if you are lost."
+battle = "Type \"%{fight}\" to hit monster (it will hit back). Or type \"%{retreat}\" to return to the previous location (monster will grow stronger)."
+
 
 [items]
 define = "You discover a magnificent %{item}: %{power} power"

@@ -26,6 +26,7 @@ impl Interactor {
 
         _ if command.is(t!("metagame.exit")) => MetagameController::exit(state),
         _ if command.is(t!("metagame.status")) => MetagameController::show_status(state),
+        _ if command.is(t!("metagame.help_me")) => MetagameController::help_in_combat(),
         _ => MetagameController::do_nothing_in_combat(),
       }
     } else {
@@ -40,6 +41,7 @@ impl Interactor {
         _ if command.is(t!("metagame.rules")) => MetagameController::show_rules(),
         _ if command.is(t!("metagame.status")) => MetagameController::show_status(state),
         _ if command.is(t!("metagame.exit")) => MetagameController::exit(state),
+        _ if command.is(t!("metagame.help_me")) => MetagameController::help(),
         _ => MetagameController::do_nothing(),
       }
     }
