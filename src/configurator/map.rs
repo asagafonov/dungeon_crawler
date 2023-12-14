@@ -1,22 +1,7 @@
 use rand::Rng;
+use rust_i18n::t;
 use substring::Substring;
-use crate::data::{
-  types::{
-    Content,
-    Class,
-    MonsterLevel,
-    TrapClass,
-    WeaponClass,
-    ArmorClass,
-    Monster,
-    Trap,
-    Item,
-    Weapon,
-    Armor,
-    HealthPotion,
-  },
-  constants::MAX_DUNGEON_DEPTH,
-};
+use crate::data::{types::*, constants::*,};
 
 pub struct Terrain {
   pub id: String,
@@ -102,7 +87,7 @@ impl Map {
 
     match monster_index {
       1 => Content::Monster(Monster {
-        name: String::new(),
+        name: Self::gen_name("names.monster"),
         health: 10,
         attack: 3,
         level: MonsterLevel::Weak,
@@ -110,7 +95,7 @@ impl Map {
         loot: Map::generate_random_treasure(MonsterLevel::Weak),
       }),
       2 => Content::Monster(Monster {
-        name: String::new(),
+        name: Self::gen_name("names.monster"),
         health: 15,
         attack: 5,
         level: MonsterLevel::Average,
@@ -118,7 +103,7 @@ impl Map {
         loot: Map::generate_random_treasure(MonsterLevel::Average),
       }),
       _ => Content::Monster(Monster {
-        name: String::new(),
+        name: Self::gen_name("names.monster"),
         health: 20,
         attack: 7,
         level: MonsterLevel::Strong,
@@ -150,24 +135,21 @@ impl Map {
     match treasure_class {
       0 => { Item::Weapon(Weapon {
           class: weapon_class,
-          name: String::new(),
+          name: Self::gen_name("names.weapon"),
           attack: item_power,
-          description: String::new(),
           belongs_to: hero_class,
         })
       },
       1 => { Item::Armor(Armor {
           class: armor_class,
-          name: String::new(),
+          name: Self::gen_name("names.armor"),
           defence: item_power,
-          description: String::new(),
           belongs_to: hero_class,
         })
       },
       _ => {
         Item::HealthPotion( HealthPotion{
           power: item_power,
-          description: String::new(),
       })
     },
   }
@@ -185,7 +167,7 @@ impl Map {
 
   pub fn insert_boss(&mut self) {
     let boss = Content::Monster(Monster {
-      name: String::new(),
+      name: Self::gen_name("names.monster"),
       health: 30,
       attack: 10,
       level: MonsterLevel::Boss,
@@ -205,5 +187,11 @@ impl Map {
     }
 
     current_terrain.content = boss;
+  }
+
+  fn gen_name(key: &str) -> String {
+    let index = rand::thread_rng().gen_range(0..NAMES_COL_LEN);
+    let name = format!("{}.{}", key, index);
+    t!(&name)
   }
 }

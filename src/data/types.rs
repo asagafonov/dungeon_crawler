@@ -20,7 +20,6 @@ pub struct Weapon {
   pub belongs_to: Class,
   pub name: String,
   pub attack: i8,
-  pub description: String,
 }
 
 #[derive(Clone)]
@@ -29,13 +28,11 @@ pub struct Armor {
   pub belongs_to: Class,
   pub name: String,
   pub defence: i8,
-  pub description: String,
 }
 
 #[derive(Clone)]
 pub struct HealthPotion {
   pub power: i8,
-  pub description: String
 }
 
 #[derive(Clone)]

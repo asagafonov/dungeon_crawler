@@ -1,10 +1,8 @@
 use rand::Rng;
 use std::io;
 use rust_i18n::t;
-use crate::data::types::{
-  Item, Class, Weapon, Armor, WeaponClass, ArmorClass,
-};
-use crate::shared::helpers::{class_as_string, weapon_as_string, armor_as_string};
+use crate::data::types::*;
+use crate::shared::helpers::*;
 
 pub struct Player {
   pub class: Class,
@@ -22,7 +20,16 @@ impl Player {
         let current_weapon = &self.weapon;
         let weapon_class = class_as_string(&weapon.belongs_to);
         let hero_class = class_as_string(&self.class);
-        println!("{}", t!("items.define", item = weapon_as_string(&current_weapon.class), power = current_weapon.attack));
+
+        println!(
+          "{}",
+          t!(
+            "items.define",
+            item = weapon_as_string(&weapon.class),
+            name = weapon.name,
+            power = weapon.attack,
+          ),
+        );
 
         if weapon_class != hero_class {
           println!("{}", t!("items.unusable"));
@@ -40,7 +47,16 @@ impl Player {
         let current_armor = &self.armor;
         let armor_class = class_as_string(&armor.belongs_to);
         let hero_class = class_as_string(&self.class);
-        println!("{}", t!("items.define", item = armor_as_string(&current_armor.class), power = current_armor.defence));
+
+        println!(
+          "{}",
+          t!(
+            "items.define",
+            item = armor_as_string(&armor.class),
+            name = armor.name,
+            power = armor.defence,
+          ),
+        );
 
         if armor_class != hero_class {
           println!("{}", t!("items.unusable"));
@@ -97,7 +113,6 @@ fn build_default_sword() -> Weapon {
     belongs_to: Class::Warrior,
     name: String::new(),
     attack: 5,
-    description: String::new(),
   }
 }
 
@@ -107,7 +122,6 @@ fn build_default_staff() -> Weapon {
     belongs_to: Class::Mage,
     name: String::new(),
     attack: 3,
-    description: String::new(),
   }
 }
 
@@ -117,7 +131,6 @@ fn build_default_dagger() -> Weapon {
     belongs_to: Class::Rogue,
     name: String::new(),
     attack: 2,
-    description: String::new(),
   }
 }
 
@@ -127,7 +140,6 @@ fn build_default_shield() -> Armor {
     belongs_to: Class::Warrior,
     name: String::new(),
     defence: 5,
-    description: String::new(),
   }
 }
 
@@ -137,7 +149,6 @@ fn build_default_sphere() -> Armor {
     belongs_to: Class::Mage,
     name: String::new(),
     defence: 4,
-    description: String::new(),
   }
 }
 
@@ -147,7 +158,6 @@ fn build_default_cloak() -> Armor {
     belongs_to: Class::Rogue,
     name: String::new(),
     defence: 3,
-    description: String::new(),
   }
 }
 

@@ -9,7 +9,6 @@ fn stronger_weapon_is_equipped() {
     belongs_to: Class::Warrior,
     name: String::from("Stronger sword"),
     attack: 10,
-    description: String::from("A much stronger sword"),
   };
 
   let expected_warrior_attack = warrior.attack - warrior.weapon.attack + stronger_sword.attack;
@@ -28,7 +27,6 @@ fn weaker_weapon_is_ignored() {
     belongs_to: Class::Warrior,
     name: String::from("Weaker sword"),
     attack: 2,
-    description: String::from("A much weaker sword"),
   };
 
   let expected_warrior_attack = warrior.attack;
@@ -47,7 +45,6 @@ fn another_class_weapon_is_ignored() {
     belongs_to: Class::Mage,
     name: String::from("A staff"),
     attack: 10,
-    description: String::from("Shoots fireballs"),
   };
 
   warrior.equip(&Item::Weapon(staff));
@@ -62,7 +59,7 @@ fn create_warrior() -> Player {
    health: 20,
    attack: 5,
    defence: 5,
-   weapon: Weapon { class: WeaponClass::Sword, belongs_to: Class::Warrior, name: String::from("sword"), attack: 5, description: String::from("It cuts") },
-   armor: Armor { class: ArmorClass::Shield, belongs_to: Class::Warrior , name: String::from("shield"), defence: 5, description: String::from("A little rusty one")},
+   weapon: Weapon { class: WeaponClass::Sword, belongs_to: Class::Warrior, name: String::from("sword"), attack: 5 },
+   armor: Armor { class: ArmorClass::Shield, belongs_to: Class::Warrior , name: String::from("shield"), defence: 5 },
  }
 }

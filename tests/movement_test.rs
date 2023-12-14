@@ -71,14 +71,12 @@ fn create_state() -> Engine {
       belongs_to: Class::Warrior,
       name: String::new(),
       attack: 5,
-      description: String::new(),
     },
     armor: Armor {
       class: ArmorClass::Shield,
       belongs_to: Class::Warrior,
       name: String::new(),
       defence: 5,
-      description: String::new(),
     },
   };
 

@@ -1,3 +1,4 @@
+use rust_i18n::t;
 use crate::data::types::{Class, WeaponClass, ArmorClass};
 
 pub fn class_as_string(class: &Class) -> String {
@@ -11,16 +12,16 @@ pub fn class_as_string(class: &Class) -> String {
 
 pub fn weapon_as_string(val: &WeaponClass) -> String {
   match val {
-    WeaponClass::Sword => "sword".to_string(),
-    WeaponClass::Staff => "staff".to_string(),
-    WeaponClass::Dagger => "dagger".to_string(),
+    WeaponClass::Sword => t!("items.sword"),
+    WeaponClass::Staff => t!("items.staff"),
+    WeaponClass::Dagger => t!("items.dagger"),
   }
 }
 
 pub fn armor_as_string(val: &ArmorClass) -> String {
   match val {
-    ArmorClass::Shield => "shield".to_string(),
-    ArmorClass::Sphere => "sphere".to_string(),
-    ArmorClass::Cloak => "cloak".to_string(),
+    ArmorClass::Shield => t!("items.shield"),
+    ArmorClass::Sphere => t!("items.sphere"),
+    ArmorClass::Cloak => t!("items.cloak"),
   }
 }
