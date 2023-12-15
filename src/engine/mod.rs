@@ -43,7 +43,6 @@ impl Engine {
       Interactor::execute(command, self);
     }
 
-    println!();
     if self.player.lock().unwrap().health <= 0 {
       println!("{}", t!("game.you_died"));
     } else if self.progress.lock().unwrap().is_boss_defeated {
