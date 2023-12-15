@@ -26,9 +26,9 @@ impl Progress {
   }
 
   pub fn update_score(&mut self) {
-    self.score += (self.monsters_killed * 20) as i16;
-    self.score += (self.traps_survived * 5) as i16;
-    self.score += (self.items_found * 10) as i16;
+    self.score = (self.monsters_killed * 20) as i16;
+    self.score = (self.traps_survived * 5) as i16;
+    self.score = (self.items_found * 10) as i16;
   }
 
   pub fn show_statistics(&self) {
