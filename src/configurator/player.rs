@@ -166,7 +166,7 @@ fn build_default_warrior() -> Player {
 
   Player {
     class: Class::Warrior,
-    health: 25,
+    health: 30,
     attack: 5,
     defence: 10,
     weapon: build_default_sword(),
@@ -179,8 +179,8 @@ fn build_default_mage() -> Player {
 
    Player {
     class: Class::Mage,
-    health: 20,
-    attack: 8,
+    health: 25,
+    attack: 7,
     defence: 5,
     weapon: build_default_staff(),
     armor: build_default_sphere(),
@@ -192,8 +192,8 @@ fn build_default_rogue() -> Player {
 
   Player {
     class: Class::Rogue,
-    health: 30,
-    attack: 10,
+    health: 25,
+    attack: 9,
     defence: 3,
     weapon: build_default_dagger(),
     armor: build_default_cloak(),

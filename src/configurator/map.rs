@@ -126,7 +126,7 @@ impl Map {
     let (min_power, max_power) = match monster_level {
       MonsterLevel::Weak => (3, 7),
       MonsterLevel::Average => (5, 10),
-      MonsterLevel::Strong => (8, 13),
+      MonsterLevel::Strong => (8, 12),
       _ => (15, 15),
     };
 
