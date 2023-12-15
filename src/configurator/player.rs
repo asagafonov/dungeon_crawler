@@ -17,7 +17,7 @@ impl Player {
   pub fn equip(&mut self, item: &Item) {
     match item {
       Item::Weapon(weapon) => {
-        let current_weapon = &self.weapon;
+        let current_weapon = self.weapon.clone();
         let weapon_class = class_as_string(&weapon.belongs_to);
         let hero_class = class_as_string(&self.class);
 
@@ -37,6 +37,7 @@ impl Player {
         }
 
         if weapon.attack > current_weapon.attack {
+          self.weapon = weapon.clone();
           self.attack = self.attack - current_weapon.attack + weapon.attack;
           println!("{}", t!("items.equipped_successfully"));
         } else {
@@ -44,7 +45,7 @@ impl Player {
         }
       },
       Item::Armor(armor) => {
-        let current_armor = &self.armor;
+        let current_armor = &self.armor.clone();
         let armor_class = class_as_string(&armor.belongs_to);
         let hero_class = class_as_string(&self.class);
 
@@ -64,6 +65,7 @@ impl Player {
         }
 
         if armor.defence > current_armor.defence {
+          self.armor = armor.clone();
           self.defence = self.defence - current_armor.defence + armor.defence;
           println!("{}", t!("items.equipped_successfully"));
         } else {
