@@ -132,12 +132,12 @@ impl MovementController {
 
     println!("{}", t!("move.exploration.look_around"));
 
-    if directions.forward {
-      println!("{}", t!("move.exploration.forward_available"));
-    }
-
     if directions.left {
       println!("{}", t!("move.exploration.left_available"));
+    }
+
+    if directions.forward {
+      println!("{}", t!("move.exploration.forward_available"));
     }
 
     if directions.right {
