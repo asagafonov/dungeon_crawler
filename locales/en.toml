@@ -14,6 +14,16 @@ you_won = "VICTORY! You celebrate on the remnants of the monstrous guardian. Thi
 you_quit = "Life is the most valuable treasure, you say to yourself, and leave the dungeon immediately."
 press_to_quit = "Press any key to close window."
 
+[game.result]
+score = "You have scored %{score}."
+monsters_killed = "%{amount} monsters were defeated."
+traps_survived = "%{amount} traps were survived."
+items_found = "%{amount} valuable treasures were found!"
+outcome = "Your journey ended with %{outcome}."
+victory = "victory"
+runaway = "runaway"
+death = "death"
+
 [player]
 create = "Choose your class"
 created = "You are now a"
@@ -58,6 +68,7 @@ hurt_monster = "Your strike deals %{damage} damage."
 monster_defeated = "Your terrible opponent perishes."
 monster_revenge = "The enraged monster fights back. It deals %{damage} damage."
 loot_discovered = "Among the monster's remnants you notice something. You bend down to take a better look."
+block = "Your armor saves you %{damage} health."
 
 [battle.monster]
 health_left = "Your opponent is at %{health} health."
