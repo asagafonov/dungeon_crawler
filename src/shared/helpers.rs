@@ -3,9 +3,9 @@ use crate::data::types::{Class, WeaponClass, ArmorClass};
 
 pub fn class_as_string(class: &Class) -> String {
   match class {
-    Class::Warrior => "warrior".to_string(),
-    Class::Mage => "mage".to_string(),
-    Class::Rogue => "rogue".to_string(),
+    Class::Warrior => t!("player.class.warrior"),
+    Class::Mage => t!("player.class.mage"),
+    Class::Rogue => t!("player.class.rogue"),
     _ => "unknown".to_string(),
   }
 }
