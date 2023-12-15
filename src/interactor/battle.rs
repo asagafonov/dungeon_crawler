@@ -52,9 +52,11 @@ impl BattleController {
         } else {
           monster.attack
         };
-        println!("{}", t!("battle.monster_revenge", damage = monster_attack_rate));
+        let monster_damage = monster_attack_rate - defence_rate / 2;
+        let monster_damage = if monster_damage <= 0 { 0 } else { monster_damage };
+        println!("{}", t!("battle.monster_revenge", damage = monster_damage));
         println!("{}", t!("battle.block", damage = defence_rate / 2));
-        state.player.lock().unwrap().health -= monster_attack_rate - defence_rate / 2;
+        state.player.lock().unwrap().health -= monster_damage;
       }
     }
   }
