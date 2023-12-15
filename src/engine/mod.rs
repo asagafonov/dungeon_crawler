@@ -1,5 +1,7 @@
 use std::io;
 use std::sync::{Arc, Mutex};
+use std::io::prelude::*;
+use rust_i18n::t;
 
 use crate::configurator::{map::Map, player::Player, progress::Progress};
 use crate::interactor::Interactor;
@@ -46,5 +48,17 @@ impl Engine {
     } else {
       println!("{}", t!("game.you_quit"));
     }
+
+    Self::pause();
   }
+
+  fn pause() {
+    let mut stdin = io::stdin();
+    let mut stdout = io::stdout();
+
+    write!(stdout, "{}", t!("game.press_to_quit")).unwrap();
+    stdout.flush().unwrap();
+
+    let _ = stdin.read(&mut [0u8]).unwrap();
+}
 }

@@ -12,6 +12,7 @@ delimeter = "************************"
 you_died = "DEFEAT! Your bones will be forever lost in the dark of this dungeon."
 you_won = "VICTORY! You celebrate on the remnants of the monstrous guardian. This deed will be remembered."
 you_quit = "Life is the most valuable treasure, you say to yourself, and leave the dungeon immediately."
+press_to_quit = "Press any key to close window."
 
 [player]
 create = "Choose your class"
