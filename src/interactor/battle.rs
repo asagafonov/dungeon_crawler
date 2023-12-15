@@ -33,10 +33,14 @@ impl BattleController {
 
       if monster.health <= 0 {
         println!("{}", t!("battle.monster_defeated"));
-        state.progress.lock().unwrap().battle_mode = false;
+
+        let mut progress = state.progress.lock().unwrap();
+        progress.battle_mode = false;
+        progress.monsters_killed += 1;
+        progress.update_score();
 
         if let MonsterLevel::Boss = monster.level {
-          state.progress.lock().unwrap().is_boss_defeated = true;
+          progress.is_boss_defeated = true;
         } else {
           println!("{}", t!("battle.loot_discovered"));
           let treasure = &monster.loot;
@@ -49,6 +53,7 @@ impl BattleController {
           monster.attack
         };
         println!("{}", t!("battle.monster_revenge", damage = monster_attack_rate));
+        println!("{}", t!("battle.block", damage = defence_rate / 2));
         state.player.lock().unwrap().health -= monster_attack_rate - defence_rate / 2;
       }
     }

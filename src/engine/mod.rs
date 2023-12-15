@@ -26,6 +26,7 @@ impl Engine {
     println!("{}", t!("game.show_rules", rules = t!("metagame.rules")));
 
     while !self.progress.lock().unwrap().is_boss_defeated & (self.player.lock().unwrap().health > 0) {
+      println!();
       if self.progress.lock().unwrap().need_evac {
         break;
       }
@@ -37,10 +38,12 @@ impl Engine {
           .expect(t!("errors.user_input").as_str());
 
       let command = user_input.trim();
+      println!();
 
       Interactor::execute(command, self);
     }
 
+    println!();
     if self.player.lock().unwrap().health <= 0 {
       println!("{}", t!("game.you_died"));
     } else if self.progress.lock().unwrap().is_boss_defeated {
@@ -49,6 +52,7 @@ impl Engine {
       println!("{}", t!("game.you_quit"));
     }
 
+    self.progress.lock().unwrap().show_statistics();
     Self::pause();
   }
 
