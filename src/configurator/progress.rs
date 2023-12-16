@@ -25,18 +25,27 @@ impl Progress {
     }
   }
 
-  pub fn update_score(&mut self) {
-    self.score = (self.monsters_killed * 20) as i16;
-    self.score = (self.traps_survived * 5) as i16;
-    self.score = (self.items_found * 10) as i16;
+  pub fn increment_monsters_killed(&mut self) {
+    self.monsters_killed += 1;
+  }
+
+  pub fn increment_traps_survived(&mut self) {
+    self.traps_survived += 1;
+  }
+
+  pub fn increment_items_found(&mut self) {
+    self.items_found += 1;
   }
 
   pub fn show_statistics(&self) {
     println!();
-    println!("{}", t!("game.result.score", score = self.score));
+
+    let score = self.monsters_killed * 20 + self.traps_survived * 5 + self.items_found * 10;
+    println!("{}", t!("game.result.score", score = score));
     println!("{}", t!("game.result.monsters_killed", amount = self.monsters_killed));
     println!("{}", t!("game.result.traps_survived", amount = self.traps_survived));
     println!("{}", t!("game.result.items_found", amount = self.items_found));
+
     let game_outcome = if self.is_boss_defeated { t!("game.result.victory") } else if self.need_evac { t!("game.result.runaway") } else { t!("game.result.death") };
     println!("{}", t!("game.result.outcome", outcome = game_outcome));
     println!();

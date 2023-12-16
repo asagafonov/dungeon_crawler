@@ -208,9 +208,7 @@ impl MovementController {
       },
       Content::Trap(trap) => {
         println!("{}", t!("content.trap.encounter"));
-        let mut progress = state.progress.lock().unwrap();
-        progress.traps_survived += 1;
-        progress.update_score();
+        state.progress.lock().unwrap().increment_traps_survived();
 
         match trap.class {
           TrapClass::StealAttack => {
@@ -233,9 +231,7 @@ impl MovementController {
       Content::Treasure(item) => {
         println!("{}", t!("content.treasure.encounter"));
         state.player.lock().unwrap().equip(item);
-
-        state.progress.lock().unwrap().items_found += 1;
-        state.progress.lock().unwrap().update_score();
+        state.progress.lock().unwrap().increment_items_found();
       }
       Content::Empty => {
         println!("{}", t!("content.empty"));

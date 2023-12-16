@@ -36,8 +36,7 @@ impl BattleController {
 
         let mut progress = state.progress.lock().unwrap();
         progress.battle_mode = false;
-        progress.monsters_killed += 1;
-        progress.update_score();
+        progress.increment_monsters_killed();
 
         if let MonsterLevel::Boss = monster.level {
           progress.is_boss_defeated = true;
