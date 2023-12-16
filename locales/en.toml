@@ -16,9 +16,9 @@ press_to_quit = "Press any key to close window."
 
 [game.result]
 score = "You have scored %{score}."
-monsters_killed = "%{amount} monsters were defeated."
-traps_survived = "%{amount} traps were survived."
-items_found = "%{amount} valuable treasures were found!"
+monsters_killed = "Monsters defeated: %{amount}."
+traps_survived = "Traps survived: %{amount}."
+items_found = "Treasures found: %{amount}."
 outcome = "Your journey ended with %{outcome}."
 victory = "victory"
 runaway = "runaway"
