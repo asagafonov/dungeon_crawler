@@ -16,6 +16,10 @@ extern crate rust_i18n;
 i18n!("locales", fallback = "en");
 
 pub fn start_game() {
+    println!();
+    println!("Welcome to DUNGEON CRAWLER!");
+    println!();
+
     set_locale();
 
     let (map, player, progress) = configure_state();
