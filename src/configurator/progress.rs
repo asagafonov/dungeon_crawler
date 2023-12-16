@@ -40,7 +40,7 @@ impl Progress {
   pub fn show_statistics(&self) {
     println!();
 
-    let score = self.monsters_killed * 20 + self.traps_survived * 5 + self.items_found * 10;
+    let score = (self.monsters_killed * 20) + (self.traps_survived * 5) + (self.items_found) * 10;
     println!("{}", t!("game.result.score", score = score));
     println!("{}", t!("game.result.monsters_killed", amount = self.monsters_killed));
     println!("{}", t!("game.result.traps_survived", amount = self.traps_survived));
