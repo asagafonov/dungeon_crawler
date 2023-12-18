@@ -109,6 +109,7 @@ retreat = "* If you feel that you cannot win this fight, flee. However, your opp
 traps = "* Some chambers have hidden traps that will inflict certain damage on you."
 treasures = "* Fortunately, you can also come across some goodies. Defeated monsters drop loot as well."
 stuck = "* If you are stuck, use the \"%{help}\" command."
+status = "* To see your stats, use the \"%{status}\" command."
 good_luck = "* Good luck, mighty hero! The dungeon awaits!"
 
 [metagame.help]

@@ -32,6 +32,7 @@ impl MetagameController {
     println!("{}", t!("metagame.description.traps"));
     println!("{}", t!("metagame.description.treasures"));
     println!("{}", t!("metagame.description.stuck", help = t!("metagame.help_me")));
+    println!("{}", t!("metagame.description.status", status = t!("metagame.status")));
     println!("{}", t!("metagame.description.good_luck"));
     println!();
     println!("{}", t!("game.delimeter"));
