@@ -80,6 +80,30 @@ impl Player {
       Item::Empty => {}
     }
   }
+
+  pub fn damage_weapon(&mut self, damage: i8) {
+    let new_attack = self.weapon.attack - damage;
+    if new_attack <= 0 {
+      self.weapon.attack = 0;
+    } else {
+      self.weapon.attack = new_attack;
+      self.attack -= damage;
+    }
+  }
+
+  pub fn damage_armor(&mut self, damage: i8) {
+    let new_defence = self.armor.defence - damage;
+    if new_defence <= 0 {
+      self.armor.defence = 0;
+    } else {
+      self.armor.defence = new_defence;
+      self.defence -= damage;
+    }
+  }
+
+  pub fn damage_health(&mut self, damage: i8) {
+    self.health -= damage;
+  }
 }
 
 pub fn create_player() -> Player {

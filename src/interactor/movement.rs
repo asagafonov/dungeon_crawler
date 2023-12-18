@@ -212,17 +212,17 @@ impl MovementController {
 
         match trap.class {
           TrapClass::StealAttack => {
-            state.player.lock().unwrap().attack -= trap.damage;
+            state.player.lock().unwrap().damage_weapon(1);
             println!("{}", t!("content.trap.damage_attack", damage = trap.damage));
             println!("{}", t!("player.remaining_attack", attack = state.player.lock().unwrap().attack));
           },
           TrapClass::StealDefence => {
-            state.player.lock().unwrap().defence -= trap.damage;
+            state.player.lock().unwrap().damage_armor(1);
             println!("{}", t!("content.trap.damage_defence", damage = trap.damage));
             println!("{}", t!("player.remaining_defence", defence = state.player.lock().unwrap().defence));
           },
           TrapClass::StealLife => {
-            state.player.lock().unwrap().health -= trap.damage;
+            state.player.lock().unwrap().damage_health(trap.damage);
             println!("{}", t!("content.trap.damage_health", damage = trap.damage));
             println!("{}", t!("player.remaining_health", health = state.player.lock().unwrap().health));
           }

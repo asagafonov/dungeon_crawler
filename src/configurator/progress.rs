@@ -3,12 +3,11 @@ use rust_i18n::t;
 pub struct Progress {
   pub is_boss_defeated: bool,
   pub battle_mode: bool,
+  pub need_evac: bool,
   pub position: String,
   pub monsters_killed: i8,
   pub traps_survived: i8,
   pub items_found: i8,
-  pub score: i16,
-  pub need_evac: bool,
 }
 
 impl Progress {
@@ -16,12 +15,11 @@ impl Progress {
     Progress {
       is_boss_defeated: false,
       battle_mode: false,
+      need_evac: false,
       position: String::from("0"),
       monsters_killed: 0,
       traps_survived: 0,
       items_found: 0,
-      score: 0,
-      need_evac: false,
     }
   }
 
