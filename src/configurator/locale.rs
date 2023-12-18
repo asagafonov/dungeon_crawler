@@ -3,7 +3,7 @@ use std::io;
 
 pub fn set_locale() {
   let available_locales = rust_i18n::available_locales!();
-    println!("{}: [{}]", "🌍 Choose your language", available_locales.join(", "));
+    println!("{}: [{}]", "Choose your language", available_locales.join(", "));
 
     let mut user_input = String::new();
 
