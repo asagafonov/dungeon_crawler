@@ -2,7 +2,7 @@
 
 Explore diverging tunnels for monsters, treasures and traps. Reach the lowest levels of the dungeon to track and slay the boss and win the game!
 
-## [Download game](https://github.com/asagafonov/dungeon_crawler/tree/main/download/dungeon_crawler)
+## [Download game](https://disk.yandex.ru/d/ke5ckphA0-1JvA)
 
 
 ### Characters
