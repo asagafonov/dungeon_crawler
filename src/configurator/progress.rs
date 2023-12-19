@@ -10,8 +10,8 @@ pub struct Progress {
   pub items_found: i8,
 }
 
-impl Progress {
-  pub fn default() -> Progress {
+impl Default for Progress {
+  fn default() -> Self {
     Progress {
       is_boss_defeated: false,
       battle_mode: false,
@@ -22,7 +22,9 @@ impl Progress {
       items_found: 0,
     }
   }
+}
 
+impl Progress {
   pub fn increment_monsters_killed(&mut self) {
     self.monsters_killed += 1;
   }

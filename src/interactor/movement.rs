@@ -15,8 +15,8 @@ pub struct Directions {
   forward_route_index: usize,
 }
 
-impl Directions {
-  pub fn new() -> Directions {
+impl Default for Directions {
+  fn default() -> Self {
     Directions {
       forward: false,
       left: false,
@@ -34,7 +34,7 @@ impl MovementController {
     let dungeon = &mut state.map.lock().unwrap().dungeon;
     let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position.as_str(),
+      state.progress.lock().unwrap().position.as_str(),
       0
     );
     let directions = Self::available_directions(terrain);
@@ -56,7 +56,7 @@ impl MovementController {
     let dungeon = &mut state.map.lock().unwrap().dungeon;
     let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position.as_str(),
+      state.progress.lock().unwrap().position.as_str(),
       0
     );
     let directions = Self::available_directions(terrain);
@@ -77,7 +77,7 @@ impl MovementController {
     let dungeon = &mut state.map.lock().unwrap().dungeon;
     let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position.as_str(),
+      state.progress.lock().unwrap().position.as_str(),
       0
     );
     let directions = Self::available_directions(terrain);
@@ -99,7 +99,7 @@ impl MovementController {
     let dungeon = &mut state.map.lock().unwrap().dungeon;
     let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position.as_str(),
+      state.progress.lock().unwrap().position.as_str(),
       0
     );
     let directions = Self::available_directions(terrain);
@@ -124,7 +124,7 @@ impl MovementController {
 
     let terrain = Map::find(
       dungeon,
-      &state.progress.lock().unwrap().position,
+      state.progress.lock().unwrap().position.as_str(),
       0,
     );
 
@@ -151,7 +151,7 @@ impl MovementController {
   }
 
   fn change_position(state: &Engine, next_terrain: &mut Terrain, id: String) {
-    state.progress.lock().unwrap().position = String::from(id);
+    state.progress.lock().unwrap().position = id;
 
     if next_terrain.visited {
       println!("{}", t!("move.been_there"));
@@ -164,7 +164,7 @@ impl MovementController {
   fn available_directions(terrain: &Terrain) -> Directions {
     let n_of_routes = terrain.children.len();
 
-    let mut directions = Directions::new();
+    let mut directions = Directions::default();
 
     match n_of_routes {
       1 => {

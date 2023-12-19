@@ -120,10 +120,7 @@ pub fn create_player() -> Player {
 
   io::stdin().read_line(&mut user_input).expect("Failed to read line");
 
-  let choice: i8 = match user_input.trim().parse() {
-    Ok(num) => num,
-    Err(_) => -1
-  };
+  let choice: i8 = user_input.trim().parse().unwrap_or(-1);
 
   match choice {
     1 => build_default_warrior(),
